@@ -39,6 +39,9 @@ a { color:inherit; }
 .stop p { margin:4px 0 8px; font-size:13px; color:#556159; }
 .stop code { display:block; font-family:Arial,sans-serif; font-size:12px; line-height:1.45; color:#6e756f; }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
+.online-actions { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; }
+.online-actions a { color:var(--forest); font-size:12px; font-weight:bold; text-decoration:none; }
+.online-actions a:hover { text-decoration:underline; }
 .map-actions { display:flex; flex-direction:column; align-items:flex-end; gap:7px; white-space:nowrap; }
 .map-actions a { font-size:12px; font-weight:bold; color:var(--forest); }
 .note-box { margin-top:13px; border-top:1px solid var(--line); padding-top:10px; }
