@@ -40,6 +40,18 @@ a { color:inherit; }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
 .map-actions { display:flex; flex-direction:column; align-items:flex-end; gap:7px; white-space:nowrap; }
 .map-actions a { font-size:12px; font-weight:bold; color:var(--forest); }
+.note-box { margin-top:13px; border-top:1px solid var(--line); padding-top:10px; }
+.note-box summary { cursor:pointer; color:var(--forest); font-size:12px; font-weight:bold; }
+.note-content { padding-top:12px; }
+.saved-notes { display:grid; gap:8px; margin-bottom:12px; }
+.saved-notes p { margin:0; display:grid; gap:2px; color:var(--ink); font-size:13px; line-height:1.4; }
+.saved-notes strong { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--clay); }
+.note-box form { display:grid; gap:7px; }
+.note-box input,.note-box textarea { width:100%; background:#fff; border:1px solid var(--line); padding:8px; color:var(--ink); font:inherit; font-size:12px; }
+.note-box textarea { min-height:68px; resize:vertical; }
+.note-box button { width:max-content; background:var(--forest); border:0; color:#fff; padding:8px 11px; cursor:pointer; font:inherit; font-size:12px; }
+.note-box button:disabled { opacity:.6; cursor:wait; }
+.note-box small { color:var(--clay); }
 .need { background:var(--ink); color:#f5f0e8; max-width:none; padding-left:max(24px,calc((100vw - 1032px)/2)); padding-right:max(24px,calc((100vw - 1032px)/2)); }
 .need ol { padding-left:20px; line-height:2; }
 .need a { color:#efb9a5; }
@@ -54,6 +66,7 @@ a { color:inherit; }
 .explore-card > p:not(.card-meta) { margin:0 0 12px; line-height:1.45; font-size:14px; color:#556159; }
 .explore-card code { display:block; font-family:Arial,sans-serif; font-size:12px; line-height:1.45; color:#6e756f; margin-bottom:16px; }
 .explore-card .booking { align-self:flex-start; margin-top:auto; margin-bottom:14px; }
-.explore-card .map-actions { margin-top:auto; align-items:flex-start; flex-direction:row; gap:14px; }
+.explore-card .note-box { margin-top:15px; }
+.explore-card .map-actions { margin-top:16px; align-items:flex-start; flex-direction:row; gap:14px; }
 footer { padding:26px; text-align:center; color:#657068; font-size:13px; }
 @media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid{grid-template-columns:1fr}.explore-card{min-height:0} }

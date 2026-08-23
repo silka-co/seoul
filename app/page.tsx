@@ -1,10 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Stop = { name: string; korean: string; note: string; booking?: string };
 type Day = { date: string; day: string; theme: string; description: string; stops: Stop[]; must?: string };
 type ExploreStop = Stop & { district: string; category: string };
+type TripNote = { id: number; place_key: string; author: string; body: string; created_at: string };
 
 const days: Day[] = [
   { date: 'Aug 25', day: 'Tue · Silka', theme: 'Arrival & recovery', description: 'Airport, bags, a nearby meal, nap and early night.', stops: [{ name: 'Home base', korean: '서울 종로구 창덕궁길 59-2', note: 'Jongno / Changdeokgung-gil' }] },
@@ -78,11 +79,44 @@ const explore: ExploreStop[] = [
 function naver(query: string) { return `https://map.naver.com/p/search/${encodeURIComponent(query)}`; }
 function kakao(query: string) { return `https://map.kakao.com/link/search/${encodeURIComponent(query)}`; }
 
+function NoteBox({ placeKey, notes, onAdd }: { placeKey: string; notes: TripNote[]; onAdd: (author: string, body: string) => Promise<void> }) {
+  const [author, setAuthor] = useState('Silka');
+  const [body, setBody] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  async function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setSaving(true);
+    setError('');
+    try {
+      await onAdd(author, body);
+      setBody('');
+    } catch {
+      setError('Could not save that note. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return <details className="note-box"><summary>Trip notes {notes.length ? `· ${notes.length}` : ''}</summary><div className="note-content">{notes.length > 0 && <div className="saved-notes">{notes.map((note) => <p key={note.id}><strong>{note.author}</strong><span>{note.body}</span></p>)}</div>}<form onSubmit={submit}><input aria-label="Your name" value={author} onChange={(event) => setAuthor(event.target.value)} maxLength={32} required /><textarea aria-label={`Your note about ${placeKey}`} value={body} onChange={(event) => setBody(event.target.value)} placeholder="What did you like?" maxLength={600} required /><button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save note'}</button>{error && <small>{error}</small>}</form></div></details>;
+}
+
 export default function Home() {
   const [tab, setTab] = useState<'itinerary' | 'explore'>('itinerary');
   const [active, setActive] = useState('All');
   const [district, setDistrict] = useState('All districts');
   const [category, setCategory] = useState('All categories');
+  const [notes, setNotes] = useState<TripNote[]>([]);
+  useEffect(() => {
+    fetch('/api/notes').then((response) => response.ok ? response.json() : { notes: [] }).then((data) => setNotes(data.notes ?? [])).catch(() => undefined);
+  }, []);
+  async function addNote(placeKey: string, author: string, body: string) {
+    const response = await fetch('/api/notes', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ placeKey, author, body }) });
+    if (!response.ok) throw new Error('Save failed');
+    const data = await response.json();
+    setNotes((current) => [data.note, ...current]);
+  }
   const shown = active === 'All' ? days : days.filter((d) => d.day.includes(active));
   const districts = ['All districts', ...Array.from(new Set(explore.map((stop) => stop.district)))];
   const categories = ['All categories', ...Array.from(new Set(explore.map((stop) => stop.category)))];
@@ -92,9 +126,9 @@ export default function Home() {
     <nav className="filters" aria-label="Trip site navigation"><button className={tab === 'itinerary' ? 'selected' : ''} onClick={() => setTab('itinerary')}>Itinerary</button><button className={tab === 'explore' ? 'selected' : ''} onClick={() => setTab('explore')}>Explore nearby</button></nav>
     {tab === 'itinerary' ? <>
       <nav className="subfilters" aria-label="Filter itinerary"><button className={active === 'All' ? 'selected' : ''} onClick={() => setActive('All')}>All days</button><button className={active === 'Silka' ? 'selected' : ''} onClick={() => setActive('Silka')}>Silka solo</button><button className={active === 'together' ? 'selected' : ''} onClick={() => setActive('together')}>Together</button></nav>
-      <section id="content" className="itinerary"><div className="section-head"><p className="eyebrow">The plan</p><h2>One beautiful district at a time.</h2><p>Tap a map button on your phone; it opens the location in your chosen Korean navigation service.</p></div>{shown.map((day) => <article className="day-card" key={day.date + day.day}><header><div><p className="date">{day.date}</p><p className="day">{day.day}</p></div><h3>{day.theme}</h3></header><p className="description">{day.description}</p>{day.must && <p className="must"><span>Book / note</span>{day.must}</p>}<div className="stops">{day.stops.map((stop) => <div className="stop" key={stop.name}><div><h4>{stop.name}</h4><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Booking / official site ↗</a>}</div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>)}</div></article>)}</section>
+      <section id="content" className="itinerary"><div className="section-head"><p className="eyebrow">The plan</p><h2>One beautiful district at a time.</h2><p>Tap a map button on your phone; it opens the location in your chosen Korean navigation service.</p></div>{shown.map((day) => <article className="day-card" key={day.date + day.day}><header><div><p className="date">{day.date}</p><p className="day">{day.day}</p></div><h3>{day.theme}</h3></header><p className="description">{day.description}</p>{day.must && <p className="must"><span>Book / note</span>{day.must}</p>}<div className="stops">{day.stops.map((stop) => <div className="stop" key={stop.name}><div><h4>{stop.name}</h4><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Booking / official site ↗</a>}<NoteBox placeKey={stop.name} notes={notes.filter((note) => note.place_key === stop.name)} onAdd={(author, body) => addNote(stop.name, author, body)} /></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>)}</div></article>)}</section>
       <section className="need"><p className="eyebrow">Before leaving</p><h2>Book or download now</h2><ol><li><a href="https://audeum.org/booking" target="_blank">Audeum</a> · Sep 3</li><li><a href="https://ticket.leeum.org/leeum/personal/exhibitList.do" target="_blank">Leeum</a> and Gongi · Sep 1</li><li><a href="https://www.museumsan.org/eng/guidance/view_guide.jsp?m=5&s=2" target="_blank">Museum SAN Signature Pass</a> · Sep 2</li><li><a href="https://www.hanwhafireworks.com/" target="_blank">Orange Play Zone</a> · Sep 5</li><li><a href="https://apps.apple.com/us/app/hyundai-card-dive/id1469507774" target="_blank">Hyundai Card DIVE</a> · for Art Library entry</li></ol></section>
-    </> : <section id="content" className="itinerary explore"><div className="section-head"><p className="eyebrow">Plan B, C & D</p><h2>Explore by district.</h2><p>These are the saved alternatives from the master list. Filter for where you are, then choose the kind of place you feel like seeing.</p></div><div className="explore-filters"><select value={district} onChange={(event) => setDistrict(event.target.value)} aria-label="Choose district">{districts.map((item) => <option key={item}>{item}</option>)}</select><select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Choose category">{categories.map((item) => <option key={item}>{item}</option>)}</select></div><p className="result-count">{nearby.length} saved places</p><div className="explore-grid">{nearby.map((stop) => <article className="explore-card" key={stop.name}><p className="card-meta">{stop.district} · {stop.category}</p><h3>{stop.name}</h3><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Official / booking ↗</a>}<div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></article>)}</div></section>}
+    </> : <section id="content" className="itinerary explore"><div className="section-head"><p className="eyebrow">Plan B, C & D</p><h2>Explore by district.</h2><p>These are the saved alternatives from the master list. Filter for where you are, then choose the kind of place you feel like seeing.</p></div><div className="explore-filters"><select value={district} onChange={(event) => setDistrict(event.target.value)} aria-label="Choose district">{districts.map((item) => <option key={item}>{item}</option>)}</select><select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Choose category">{categories.map((item) => <option key={item}>{item}</option>)}</select></div><p className="result-count">{nearby.length} saved places</p><div className="explore-grid">{nearby.map((stop) => <article className="explore-card" key={stop.name}><p className="card-meta">{stop.district} · {stop.category}</p><h3>{stop.name}</h3><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Official / booking ↗</a>}<NoteBox placeKey={stop.name} notes={notes.filter((note) => note.place_key === stop.name)} onAdd={(author, body) => addNote(stop.name, author, body)} /><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></article>)}</div></section>}
     <footer>Made for the trip · Keep this link pinned in Messages.</footer>
   </main>;
 }
