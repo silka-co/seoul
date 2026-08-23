@@ -17,6 +17,9 @@ a { color:inherit; }
 .filters { position:sticky; top:0; z-index:3; display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); background:rgba(244,240,232,.93); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); overflow:auto; }
 .filters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; cursor:pointer; font:inherit; font-size:14px; }
 .filters .selected { background:var(--ink); color:white; border-color:var(--ink); }
+.subfilters { display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); border-bottom:1px solid var(--line); overflow:auto; }
+.subfilters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:8px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px; }
+.subfilters .selected { background:var(--forest); color:white; border-color:var(--forest); }
 .itinerary,.need { max-width:1080px; margin:0 auto; padding:72px 24px; }
 .section-head { margin-bottom:32px; max-width:610px; }
 .section-head h2,.need h2 { font:400 clamp(35px,5vw,61px)/.95 Georgia,serif; letter-spacing:-.055em; margin:0 0 18px; }
@@ -41,5 +44,16 @@ a { color:inherit; }
 .need ol { padding-left:20px; line-height:2; }
 .need a { color:#efb9a5; }
 .need .eyebrow { color:#efb9a5; }
+.explore-filters { display:flex; gap:10px; flex-wrap:wrap; margin:28px 0 12px; }
+.explore-filters select { background:#fbf9f5; border:1px solid var(--line); border-radius:0; padding:12px 36px 12px 12px; font:inherit; color:var(--ink); }
+.result-count { margin:0 0 20px; color:#657068; font-size:13px; }
+.explore-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.explore-card { border:1px solid var(--line); background:#fbf9f5; padding:18px; display:flex; flex-direction:column; min-height:230px; }
+.explore-card .card-meta { margin:0 0 13px; color:var(--clay); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+.explore-card h3 { font:400 27px/1.02 Georgia,serif; letter-spacing:-.04em; margin:0 0 9px; }
+.explore-card > p:not(.card-meta) { margin:0 0 12px; line-height:1.45; font-size:14px; color:#556159; }
+.explore-card code { display:block; font-family:Arial,sans-serif; font-size:12px; line-height:1.45; color:#6e756f; margin-bottom:16px; }
+.explore-card .booking { align-self:flex-start; margin-top:auto; margin-bottom:14px; }
+.explore-card .map-actions { margin-top:auto; align-items:flex-start; flex-direction:row; gap:14px; }
 footer { padding:26px; text-align:center; color:#657068; font-size:13px; }
-@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px} }
+@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid{grid-template-columns:1fr}.explore-card{min-height:0} }

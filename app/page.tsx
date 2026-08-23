@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 type Stop = { name: string; korean: string; note: string; booking?: string };
 type Day = { date: string; day: string; theme: string; description: string; stops: Stop[]; must?: string };
+type ExploreStop = Stop & { district: string; category: string };
 
 const days: Day[] = [
   { date: 'Aug 25', day: 'Tue · Silka', theme: 'Arrival & recovery', description: 'Airport, bags, a nearby meal, nap and early night.', stops: [{ name: 'Home base', korean: '서울 종로구 창덕궁길 59-2', note: 'Jongno / Changdeokgung-gil' }] },
@@ -21,17 +22,79 @@ const days: Day[] = [
   { date: 'Sep 6', day: 'Sun · departure', theme: 'Airport day', description: 'Pack, breakfast nearby and leave from Seoul Station around 15:20–15:30.', stops: [{ name: 'Incheon Terminal 1', korean: '인천국제공항 제1여객터미널', note: 'Teresa' }, { name: 'Incheon Terminal 2', korean: '인천국제공항 제2여객터미널', note: 'Silka' }] },
 ];
 
+const explore: ExploreStop[] = [
+  { name: 'Gyeongbokgung Palace', korean: '서울 종로구 사직로 161 경복궁', note: 'Joseon palace', district: 'Jongno / Bukchon', category: 'Art & architecture' },
+  { name: 'MMCA Seoul', korean: '서울 종로구 삼청로 30 국립현대미술관 서울', note: 'National contemporary art museum', district: 'Jongno / Bukchon', category: 'Art & architecture' },
+  { name: 'FUTURA SEOUL', korean: '서울 종로구 북촌로 61 푸투라서울', note: 'Es Devlin exhibition', district: 'Jongno / Bukchon', category: 'Art & architecture', booking: 'https://www.futuraseoul.org/57' },
+  { name: 'Kukje Gallery', korean: '서울 종로구 삼청로 54 국제갤러리', note: 'Contemporary gallery', district: 'Jongno / Bukchon', category: 'Art & architecture' },
+  { name: 'Museum Hanmi Samcheong', korean: '서울 종로구 삼청로 11길 11 뮤지엄한미 삼청', note: 'Photography and contemporary art', district: 'Jongno / Bukchon', category: 'Art & architecture' },
+  { name: 'Cafe Onion Anguk', korean: '서울 종로구 계동길 5 카페 어니언 안국점', note: 'Hanok bakery café — optional', district: 'Jongno / Bukchon', category: 'Coffee & tea' },
+  { name: 'Cheongsudang', korean: '서울 종로구 돈화문로11나길 31-9 청수당', note: 'Dessert / tea close to home — optional', district: 'Jongno / Bukchon', category: 'Coffee & tea' },
+  { name: 'Ouvert Coffee Bar', korean: '서울 종로구 필운대로1길 3 우베르트 커피바', note: 'Seochon coffee — optional', district: 'Jongno / Bukchon', category: 'Coffee & tea' },
+  { name: 'ANAM', korean: '서울 종로구 계동길 37 안암', note: 'Pork-and-rice-soup local meal', district: 'Jongno / Bukchon', category: 'Food & drinks' },
+  { name: 'Hwangsaengga Kalguksu', korean: '서울 종로구 북촌로5길 78 황생가칼국수', note: 'Kalguksu and mandu', district: 'Jongno / Bukchon', category: 'Food & drinks' },
+  { name: 'Gaeseong Mandu Koong', korean: '서울 종로구 인사동10길 11-3 개성만두 궁', note: 'Hanok mandu restaurant', district: 'Jongno / Bukchon', category: 'Food & drinks' },
+  { name: 'Imun Seollongtang', korean: '서울 종로구 우정국로 38-13 이문설농탕', note: 'Historic soup breakfast', district: 'Jongno / Bukchon', category: 'Food & drinks' },
+  { name: '032c Gallery Seoul', korean: '서울 성동구 성수이로10길 14 032c 갤러리 서울', note: 'Fashion / publishing / exhibition space', district: 'Seongsu', category: 'Art & architecture' },
+  { name: 'HAUS NOWHERE + NUDAKE Tea House', korean: '서울 성동구 뚝섬로 433 하우스 노웨어 서울', note: 'Conceptual retail; Tea House on 5F', district: 'Seongsu', category: 'Fashion & design', booking: 'https://nudake.com/kr/store/tea-house/' },
+  { name: 'Tamburins Seongsu', korean: '서울 성동구 성수동 탬버린즈 성수', note: 'Retail architecture', district: 'Seongsu', category: 'Fashion & design' },
+  { name: 'ADER Error Seongsu', korean: '서울 성동구 성수동 아더에러 성수', note: 'Experimental fashion flagship', district: 'Seongsu', category: 'Fashion & design' },
+  { name: 'Dior Seongsu', korean: '서울 성동구 성수동 디올 성수', note: 'Check current public access', district: 'Seongsu', category: 'Fashion & design' },
+  { name: 'Foreplan', korean: '서울 성동구 왕십리로14길 30-11 포플랜', note: 'Coffee/brunch — optional', district: 'Seongsu', category: 'Coffee & tea' },
+  { name: 'Coffee Nap Roasters', korean: '서울 마포구 성미산로27길 70 커피냅로스터스', note: 'Coffee — optional', district: 'Yeonnam / Hongdae', category: 'Coffee & tea' },
+  { name: 'Protokoll Yeonhui', korean: '서울 서대문구 연희로 109 2층 프로토콜', note: 'Coffee / work fallback — optional', district: 'Yeonnam / Hongdae', category: 'Coffee & tea' },
+  { name: 'Protokoll Sangsu', korean: '서울 마포구 어울마당로2길 13-4 프로토콜', note: 'Coffee — optional', district: 'Yeonnam / Hongdae', category: 'Coffee & tea' },
+  { name: 'Seian Spa Yeonnam', korean: '서울 마포구 동교로29길 64 영인빌딩 2층 세이안스파', note: 'Women-only shared scrub', district: 'Yeonnam / Hongdae', category: 'Wellness & work' },
+  { name: 'Hangong-Gan', korean: '서울 마포구 연남동 561-4 한공간', note: 'Asian-fusion dinner', district: 'Yeonnam / Hongdae', category: 'Food & drinks' },
+  { name: 'Leeum Museum of Art', korean: '서울 용산구 이태원로55길 60-16 리움미술관', note: 'OMA, Mario Botta and Jean Nouvel', district: 'Hannam / Itaewon', category: 'Art & architecture', booking: 'https://ticket.leeum.org/leeum/personal/exhibitList.do' },
+  { name: 'SAN SAN GEAR Hannam', korean: '서울 용산구 이태원로55길 37-10 산산기어 한남', note: 'New fashion flagship in a former house', district: 'Hannam / Itaewon', category: 'Fashion & design' },
+  { name: 'Millimeter Milligram', korean: '서울 용산구 이태원로 240 밀리미터밀리그람', note: 'Korean design goods', district: 'Hannam / Itaewon', category: 'Fashion & design' },
+  { name: 'Wooyoungmi Seoul Flagship', korean: '서울 용산구 한남동 우영미 플래그십스토어', note: 'Architecture-led fashion store', district: 'Hannam / Itaewon', category: 'Fashion & design' },
+  { name: 'Hyundai Card Art Library', korean: '서울 용산구 이태원로 248 현대카드 아트 라이브러리', note: 'DIVE app + photo ID required', district: 'Hannam / Itaewon', category: 'Wellness & work' },
+  { name: 'Gongi', korean: '서울 용산구 이태원로45길 4 공기', note: 'Modern Korean dinner', district: 'Hannam / Itaewon', category: 'Food & drinks', booking: 'https://www.catchtable.net/shop/gonggi' },
+  { name: 'Hahouse Café', korean: '서울 용산구 이태원로54가길 8 2층 하우스', note: 'Concrete / timber café — optional', district: 'Hannam / Itaewon', category: 'Coffee & tea' },
+  { name: 'Frieze House Seoul', korean: '서울 중구 동호로15길 17 프리즈 하우스 서울', note: 'Contemporary-art venue', district: 'Jung / Euljiro', category: 'Art & architecture' },
+  { name: 'piknic', korean: '서울 중구 퇴계로6가길 30 피크닉', note: 'COMPANY World Affair through Sep 6', district: 'Jung / Euljiro', category: 'Art & architecture' },
+  { name: 'The Book Society Hoehyeon', korean: '서울 중구 퇴계로4길 2 로컬스티치 C동 3층 더북소사이어티', note: 'Independent art and publishing', district: 'Jung / Euljiro', category: 'Art & architecture' },
+  { name: 'Seosomun Shrine History Museum', korean: '서울 중구 칠패로 5 서소문성지역사박물관', note: 'Contemplative underground architecture', district: 'Jung / Euljiro', category: 'Art & architecture' },
+  { name: 'Jean Frigo', korean: '서울 중구 퇴계로62길 9-8 장프리고', note: 'Refrigerator-door cocktail bar', district: 'Jung / Euljiro', category: 'Food & drinks' },
+  { name: 'Dongdaemun Design Plaza', korean: '서울 중구 을지로 281 동대문디자인플라자', note: 'Zaha Hadid landmark', district: 'Dongdaemun', category: 'Art & architecture' },
+  { name: 'House of Dior Seoul', korean: '서울 강남구 압구정로 464 하우스 오브 디올', note: 'Christian de Portzamparc exterior', district: 'Dosan / Gangnam', category: 'Fashion & design' },
+  { name: 'Sulwhasoo Flagship', korean: '서울 강남구 도산대로45길 18 설화수 플래그십스토어', note: 'Neri&Hu; best at dusk', district: 'Dosan / Gangnam', category: 'Art & architecture' },
+  { name: 'JUUN.J Dosan Flagship', korean: '서울 강남구 언주로164길 23 준지 도산 플래그십스토어', note: 'Fashion architecture', district: 'Dosan / Gangnam', category: 'Fashion & design' },
+  { name: 'Gugus Apgujeong', korean: '서울 강남구 선릉로 846 구구스 압구정점', note: 'Pre-owned luxury', district: 'Dosan / Gangnam', category: 'Fashion & design' },
+  { name: 'Urban Hive', korean: '서울 강남구 논현동 200-7 어반하이브', note: 'Perforated-concrete exterior', district: 'Dosan / Gangnam', category: 'Art & architecture' },
+  { name: 'COEX / Frieze Seoul', korean: '서울 강남구 영동대로 513 코엑스', note: 'Frieze art fair', district: 'Gangnam / COEX', category: 'Art & architecture' },
+  { name: 'Audeum Audio Museum', korean: '서울 서초구 헌릉로8길 6 오디움', note: 'Kengo Kuma; reservation required', district: 'Outer Seoul', category: 'Art & architecture', booking: 'https://audeum.org/booking' },
+  { name: 'LG Arts Center Seoul', korean: '서울 강서구 마곡중앙로 136 LG아트센터 서울', note: 'Tadao Ando performance complex', district: 'Outer Seoul', category: 'Art & architecture' },
+  { name: 'Mullae Industrial Arts District', korean: '서울 영등포구 문래동', note: 'Steel workshops, studios and evening bars', district: 'Outer Seoul', category: 'Art & architecture' },
+  { name: 'Vinyl House', korean: '서울 영등포구 도림로128가길 13-8 비닐하우스', note: 'Natural wine dinner in Mullae', district: 'Outer Seoul', category: 'Food & drinks' },
+  { name: 'Museum SAN', korean: '강원특별자치도 원주시 지정면 오크밸리2길 260 뮤지엄산', note: 'Tadao Ando day trip', district: 'Day trips', category: 'Art & architecture', booking: 'https://app.museumsan.org/eng/guidance/view_guide.jsp?m=5&s=2' },
+  { name: 'Hoam Museum of Art', korean: '경기 용인시 처인구 포곡읍 에버랜드로562번길 38 호암미술관', note: 'Museum and gardens', district: 'Day trips', category: 'Art & architecture' },
+  { name: 'Mimesis Art Museum', korean: '경기 파주시 문발로 253 미메시스 아트 뮤지엄', note: 'Architectural museum in Paju', district: 'Day trips', category: 'Art & architecture' },
+  { name: 'Eunpyeong Hanok Village', korean: '서울 은평구 진관동 은평한옥마을', note: 'Hanok village beneath Bukhansan', district: 'Day trips', category: 'Art & architecture' },
+];
+
 function naver(query: string) { return `https://map.naver.com/p/search/${encodeURIComponent(query)}`; }
 function kakao(query: string) { return `https://map.kakao.com/link/search/${encodeURIComponent(query)}`; }
 
 export default function Home() {
+  const [tab, setTab] = useState<'itinerary' | 'explore'>('itinerary');
   const [active, setActive] = useState('All');
+  const [district, setDistrict] = useState('All districts');
+  const [category, setCategory] = useState('All categories');
   const shown = active === 'All' ? days : days.filter((d) => d.day.includes(active));
+  const districts = ['All districts', ...Array.from(new Set(explore.map((stop) => stop.district)))];
+  const categories = ['All categories', ...Array.from(new Set(explore.map((stop) => stop.category)))];
+  const nearby = explore.filter((stop) => (district === 'All districts' || stop.district === district) && (category === 'All categories' || stop.category === category));
   return <main>
-    <section className="hero"><p className="eyebrow">Seoul · Wonju · 25 Aug — 6 Sep 2026</p><h1>Silka & Teresa<br /><em>in Korea</em></h1><p className="lede">A living, clickable itinerary for design, art, architecture, fashion and long pauses.</p><p className="priority">Priority order: architecture, art, design and fashion. Cafés are optional.</p><div className="hero-actions"><a href="#itinerary">Open itinerary ↓</a><a className="quiet" href="https://map.naver.com/" target="_blank">Open Naver Map ↗</a></div></section>
-    <nav className="filters" aria-label="Filter itinerary"><button className={active === 'All' ? 'selected' : ''} onClick={() => setActive('All')}>All days</button><button className={active === 'Silka' ? 'selected' : ''} onClick={() => setActive('Silka')}>Silka solo</button><button className={active === 'together' ? 'selected' : ''} onClick={() => setActive('together')}>Together</button></nav>
-    <section id="itinerary" className="itinerary"><div className="section-head"><p className="eyebrow">The plan</p><h2>One beautiful district at a time.</h2><p>Tap a map button on your phone; it opens the location in your chosen Korean navigation service.</p></div>{shown.map((day) => <article className="day-card" key={day.date + day.day}><header><div><p className="date">{day.date}</p><p className="day">{day.day}</p></div><h3>{day.theme}</h3></header><p className="description">{day.description}</p>{day.must && <p className="must"><span>Book / note</span>{day.must}</p>}<div className="stops">{day.stops.map((stop) => <div className="stop" key={stop.name}><div><h4>{stop.name}</h4><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Booking / official site ↗</a>}</div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>)}</div></article>)}</section>
-    <section className="need"><p className="eyebrow">Before leaving</p><h2>Book or download now</h2><ol><li><a href="https://audeum.org/booking" target="_blank">Audeum</a> · Sep 3</li><li><a href="https://ticket.leeum.org/leeum/personal/exhibitList.do" target="_blank">Leeum</a> and Gongi · Sep 1</li><li><a href="https://www.museumsan.org/eng/guidance/view_guide.jsp?m=5&s=2" target="_blank">Museum SAN Signature Pass</a> · Sep 2</li><li><a href="https://www.hanwhafireworks.com/" target="_blank">Orange Play Zone</a> · Sep 5</li><li><a href="https://apps.apple.com/us/app/hyundai-card-dive/id1469507774" target="_blank">Hyundai Card DIVE</a> · for Art Library entry</li></ol></section>
+    <section className="hero"><p className="eyebrow">Seoul · Wonju · 25 Aug — 6 Sep 2026</p><h1>Silka & Teresa<br /><em>in Korea</em></h1><p className="lede">A living, clickable itinerary for design, art, architecture, fashion and long pauses.</p><p className="priority">Priority order: architecture, art, design and fashion. Cafés are optional.</p><div className="hero-actions"><a href="#content">Open plan ↓</a><a className="quiet" href="https://map.naver.com/" target="_blank">Open Naver Map ↗</a></div></section>
+    <nav className="filters" aria-label="Trip site navigation"><button className={tab === 'itinerary' ? 'selected' : ''} onClick={() => setTab('itinerary')}>Itinerary</button><button className={tab === 'explore' ? 'selected' : ''} onClick={() => setTab('explore')}>Explore nearby</button></nav>
+    {tab === 'itinerary' ? <>
+      <nav className="subfilters" aria-label="Filter itinerary"><button className={active === 'All' ? 'selected' : ''} onClick={() => setActive('All')}>All days</button><button className={active === 'Silka' ? 'selected' : ''} onClick={() => setActive('Silka')}>Silka solo</button><button className={active === 'together' ? 'selected' : ''} onClick={() => setActive('together')}>Together</button></nav>
+      <section id="content" className="itinerary"><div className="section-head"><p className="eyebrow">The plan</p><h2>One beautiful district at a time.</h2><p>Tap a map button on your phone; it opens the location in your chosen Korean navigation service.</p></div>{shown.map((day) => <article className="day-card" key={day.date + day.day}><header><div><p className="date">{day.date}</p><p className="day">{day.day}</p></div><h3>{day.theme}</h3></header><p className="description">{day.description}</p>{day.must && <p className="must"><span>Book / note</span>{day.must}</p>}<div className="stops">{day.stops.map((stop) => <div className="stop" key={stop.name}><div><h4>{stop.name}</h4><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Booking / official site ↗</a>}</div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>)}</div></article>)}</section>
+      <section className="need"><p className="eyebrow">Before leaving</p><h2>Book or download now</h2><ol><li><a href="https://audeum.org/booking" target="_blank">Audeum</a> · Sep 3</li><li><a href="https://ticket.leeum.org/leeum/personal/exhibitList.do" target="_blank">Leeum</a> and Gongi · Sep 1</li><li><a href="https://www.museumsan.org/eng/guidance/view_guide.jsp?m=5&s=2" target="_blank">Museum SAN Signature Pass</a> · Sep 2</li><li><a href="https://www.hanwhafireworks.com/" target="_blank">Orange Play Zone</a> · Sep 5</li><li><a href="https://apps.apple.com/us/app/hyundai-card-dive/id1469507774" target="_blank">Hyundai Card DIVE</a> · for Art Library entry</li></ol></section>
+    </> : <section id="content" className="itinerary explore"><div className="section-head"><p className="eyebrow">Plan B, C & D</p><h2>Explore by district.</h2><p>These are the saved alternatives from the master list. Filter for where you are, then choose the kind of place you feel like seeing.</p></div><div className="explore-filters"><select value={district} onChange={(event) => setDistrict(event.target.value)} aria-label="Choose district">{districts.map((item) => <option key={item}>{item}</option>)}</select><select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Choose category">{categories.map((item) => <option key={item}>{item}</option>)}</select></div><p className="result-count">{nearby.length} saved places</p><div className="explore-grid">{nearby.map((stop) => <article className="explore-card" key={stop.name}><p className="card-meta">{stop.district} · {stop.category}</p><h3>{stop.name}</h3><p>{stop.note}</p><code>{stop.korean}</code>{stop.booking && <a className="booking" href={stop.booking} target="_blank">Official / booking ↗</a>}<div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></article>)}</div></section>}
     <footer>Made for the trip · Keep this link pinned in Messages.</footer>
   </main>;
 }
