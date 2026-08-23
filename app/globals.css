@@ -10,6 +10,7 @@ a { color:inherit; }
 .hero h1 { max-width:840px; margin:0; font-family:Georgia, serif; font-size:clamp(57px,10vw,142px); line-height:.84; letter-spacing:-.07em; }
 .hero em { font-weight:400; }
 .lede { font-size:clamp(17px,2vw,22px); max-width:470px; line-height:1.45; margin:34px 0 22px; }
+.priority { max-width:470px; margin:0 0 22px; font-size:13px; line-height:1.45; letter-spacing:.03em; opacity:.82; }
 .hero-actions { display:flex; gap:10px; flex-wrap:wrap; }
 .hero-actions a,.booking { text-decoration:none; padding:12px 16px; border:1px solid currentColor; border-radius:999px; font-size:14px; }
 .hero-actions .quiet { opacity:.75; }
