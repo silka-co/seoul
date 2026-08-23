@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 type Stop = { name: string; korean: string; note: string; booking?: string };
 type Day = { date: string; day: string; theme: string; description: string; stops: Stop[]; must?: string };
 type ExploreStop = Stop & { district: string; category: string };
-type TripNote = { id: number; place_key: string; author: string; body: string; created_at: string };
+type TripNote = { id: number; place_key: string; author: string; body: string; created_at: string; image_key: string | null };
 
 const days: Day[] = [
   { date: 'Aug 25', day: 'Tue · Silka', theme: 'Arrival & recovery', description: 'Airport, bags, a nearby meal, nap and early night.', stops: [{ name: 'Home base', korean: '서울 종로구 창덕궁길 59-2', note: 'Jongno / Changdeokgung-gil' }] },
@@ -79,9 +79,10 @@ const explore: ExploreStop[] = [
 function naver(query: string) { return `https://map.naver.com/p/search/${encodeURIComponent(query)}`; }
 function kakao(query: string) { return `https://map.kakao.com/link/search/${encodeURIComponent(query)}`; }
 
-function NoteBox({ placeKey, notes, onAdd }: { placeKey: string; notes: TripNote[]; onAdd: (author: string, body: string) => Promise<void> }) {
+function NoteBox({ placeKey, notes, onAdd }: { placeKey: string; notes: TripNote[]; onAdd: (author: string, body: string, image: File | null) => Promise<void> }) {
   const [author, setAuthor] = useState('Silka');
   const [body, setBody] = useState('');
+  const [image, setImage] = useState<File | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
@@ -90,8 +91,9 @@ function NoteBox({ placeKey, notes, onAdd }: { placeKey: string; notes: TripNote
     setSaving(true);
     setError('');
     try {
-      await onAdd(author, body);
+      await onAdd(author, body, image);
       setBody('');
+      setImage(null);
     } catch {
       setError('Could not save that note. Please try again.');
     } finally {
@@ -99,7 +101,7 @@ function NoteBox({ placeKey, notes, onAdd }: { placeKey: string; notes: TripNote
     }
   }
 
-  return <details className="note-box"><summary>Trip notes {notes.length ? `· ${notes.length}` : ''}</summary><div className="note-content">{notes.length > 0 && <div className="saved-notes">{notes.map((note) => <p key={note.id}><strong>{note.author}</strong><span>{note.body}</span></p>)}</div>}<form onSubmit={submit}><input aria-label="Your name" value={author} onChange={(event) => setAuthor(event.target.value)} maxLength={32} required /><textarea aria-label={`Your note about ${placeKey}`} value={body} onChange={(event) => setBody(event.target.value)} placeholder="What did you like?" maxLength={600} required /><button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save note'}</button>{error && <small>{error}</small>}</form></div></details>;
+  return <details className="note-box"><summary>Trip notes {notes.length ? `· ${notes.length}` : ''}</summary><div className="note-content">{notes.length > 0 && <div className="saved-notes">{notes.map((note) => <div className="saved-note" key={note.id}><p><strong>{note.author}</strong><span>{note.body}</span></p>{note.image_key && <img src={`/api/images/${note.image_key}`} alt={`Trip memory from ${note.author}`} />}</div>)}</div>}<form onSubmit={submit}><input aria-label="Your name" value={author} onChange={(event) => setAuthor(event.target.value)} maxLength={32} required /><textarea aria-label={`Your note about ${placeKey}`} value={body} onChange={(event) => setBody(event.target.value)} placeholder="What did you like?" maxLength={600} required /><input className="image-input" aria-label="Attach a photo" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" onChange={(event) => setImage(event.target.files?.[0] ?? null)} /><button type="submit" disabled={saving}>{saving ? 'Saving…' : 'Save note'}</button>{error && <small>{error}</small>}</form></div></details>;
 }
 
 export default function Home() {
@@ -111,8 +113,13 @@ export default function Home() {
   useEffect(() => {
     fetch('/api/notes').then((response) => response.ok ? response.json() : { notes: [] }).then((data) => setNotes(data.notes ?? [])).catch(() => undefined);
   }, []);
-  async function addNote(placeKey: string, author: string, body: string) {
-    const response = await fetch('/api/notes', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ placeKey, author, body }) });
+  async function addNote(placeKey: string, author: string, body: string, image: File | null) {
+    const form = new FormData();
+    form.set('placeKey', placeKey);
+    form.set('author', author);
+    form.set('body', body);
+    if (image) form.set('image', image);
+    const response = await fetch('/api/notes', { method: 'POST', body: form });
     if (!response.ok) throw new Error('Save failed');
     const data = await response.json();
     setNotes((current) => [data.note, ...current]);
