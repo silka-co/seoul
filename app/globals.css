@@ -17,6 +17,8 @@ a { color:inherit; }
 .filters { position:sticky; top:0; z-index:3; display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); background:rgba(244,240,232,.93); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); overflow:auto; }
 .filters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; cursor:pointer; font:inherit; font-size:14px; }
 .filters .selected { background:var(--ink); color:white; border-color:var(--ink); }
+.filters .tab-link { white-space:nowrap; text-decoration:none; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; font-size:14px; }
+.filters .tab-link:hover { background:var(--ink); color:white; border-color:var(--ink); }
 .subfilters { display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); border-bottom:1px solid var(--line); overflow:auto; }
 .subfilters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:8px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px; }
 .subfilters .selected { background:var(--forest); color:white; border-color:var(--forest); }
@@ -76,5 +78,16 @@ a { color:inherit; }
 .explore-card .booking { align-self:flex-start; margin-top:auto; margin-bottom:14px; }
 .explore-card .note-box { margin-top:15px; }
 .explore-card .map-actions { margin-top:16px; align-items:flex-start; flex-direction:row; gap:14px; }
+.travel-tips { max-width:1080px; margin:0 auto; padding:88px 24px 72px; border-top:1px solid var(--ink); }
+.tip-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.tip-grid article { background:#e9e4da; padding:24px; min-height:270px; }
+.tip-grid .tip-wide { grid-column:span 2; min-height:0; }
+.tip-number { margin:0 0 23px; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--clay); font-weight:700; }
+.tip-grid h3 { margin:0 0 12px; font:400 30px/1 Georgia,serif; letter-spacing:-.04em; }
+.tip-grid ul { padding-left:18px; margin:0; display:grid; gap:9px; font-size:14px; line-height:1.45; }
+.tip-grid li::marker { color:var(--clay); }
+.tip-grid .tip-wide p:not(.tip-number) { max-width:680px; margin:0 0 15px; line-height:1.5; }
+.tip-link { display:inline-block; margin-top:20px; color:var(--forest); font-size:13px; font-weight:700; }
+.tip-footnote { max-width:700px; margin:18px 0 0; color:#566158; font-size:13px; line-height:1.45; }
 footer { padding:26px; text-align:center; color:#657068; font-size:13px; }
-@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.note-box form{width:100%}.need{padding:48px 24px}.explore-grid{grid-template-columns:1fr}.explore-card{min-height:0} }
+@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.note-box form{width:100%}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
