@@ -108,8 +108,13 @@ export default function Home() {
   useEffect(() => {
     const currentCard = document.querySelector<HTMLElement>(`[data-trip-date="${currentTripDate()}"]`);
     if (!currentCard) return;
-    const frame = window.requestAnimationFrame(() => currentCard.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
-    return () => window.cancelAnimationFrame(frame);
+    const savedScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    const timeout = window.setTimeout(() => window.scrollTo({ top: currentCard.getBoundingClientRect().top + window.scrollY - 76, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }), 350);
+    return () => {
+      window.clearTimeout(timeout);
+      window.history.scrollRestoration = savedScrollRestoration;
+    };
   }, []);
   return <main>
     <section className="hero"><p className="eyebrow">Seoul · Wonju · 25 Aug — 6 Sep 2026</p><h1>Silka & Teresa<br /><em>in Korea</em></h1><p className="lede">A living, clickable itinerary for design, art, architecture, fashion and long pauses.</p><p className="priority">Priority order: architecture, art, design and fashion. Cafés are optional.</p></section>
