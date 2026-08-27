@@ -42,7 +42,7 @@ a { color:inherit; }
 .section-head { margin-bottom:32px; max-width:610px; }
 .section-head h2,.need h2 { font:400 clamp(35px,5vw,61px)/.95 var(--font-title); letter-spacing:-.055em; margin:0 0 18px; }
 .section-head > p:last-child { line-height:1.5; color:var(--ink-secondary); }
-.day-card { border-top:1px solid var(--divider); padding:24px 0 34px; }
+.day-card { border-top:1px solid var(--divider); padding:24px 0 34px; scroll-margin-top:76px; }
 .day-card header { display:grid; grid-template-columns:135px 1fr; align-items:start; gap:20px; }
 .date { margin:0; font-size:25px; font-family:var(--font-title); }
 .day { margin:4px 0 0; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-secondary); }
