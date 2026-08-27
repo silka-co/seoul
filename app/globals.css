@@ -30,12 +30,14 @@ a { color:inherit; }
 .hero-actions .quiet { opacity:.75; }
 .filters { position:sticky; top:0; z-index:3; display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); background:color-mix(in srgb,var(--bg) 93%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--divider); overflow:auto; }
 .filters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; cursor:pointer; font:inherit; font-size:14px; }
+.filters button:not(.selected):hover,.subfilters button:not(.selected):hover { background:rgba(0,0,0,.06); border-color:var(--ink-muted); }
 .filters .selected { background:var(--ink); color:white; border-color:var(--ink); }
 .filters .tab-link { white-space:nowrap; text-decoration:none; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; font-size:14px; }
 .filters .tab-link:hover { background:var(--ink); color:white; border-color:var(--ink); }
 .subfilters { display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); border-bottom:1px solid var(--line); overflow:auto; }
 .subfilters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:8px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px; }
 .subfilters .selected { background:var(--forest); color:white; border-color:var(--forest); }
+.filters button:focus-visible,.subfilters button:focus-visible,.filters .tab-link:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
 .itinerary,.need { max-width:var(--content-max); margin:0 auto; padding:var(--content-pad); }
 .section-head { margin-bottom:32px; max-width:610px; }
 .section-head h2,.need h2 { font:400 clamp(35px,5vw,61px)/.95 var(--font-title); letter-spacing:-.055em; margin:0 0 18px; }
