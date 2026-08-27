@@ -20,7 +20,7 @@ html { scroll-behavior:smooth; }
 body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); }
 a { color:inherit; }
 .hero { position:relative; isolation:isolate; overflow:hidden; min-height:72vh; padding:clamp(32px,7vw,96px); display:flex; flex-direction:column; justify-content:flex-end; color:var(--bg); background:var(--ink); }
-.hero::before { content:''; position:absolute; z-index:0; width:200%; height:200%; inset:-50%; pointer-events:none; background:var(--bg); opacity:.8; -webkit-mask:url('/seoul/noise-circle.svg') left center/100% 100% no-repeat; mask:url('/seoul/noise-circle.svg') left center/100% 100% no-repeat; }
+.hero::before { content:''; position:absolute; z-index:0; left:0; top:-50%; width:200%; height:200%; pointer-events:none; background:var(--bg); opacity:.8; -webkit-mask:url('/seoul/noise-circle.svg') left center/100% 100% no-repeat; mask:url('/seoul/noise-circle.svg') left center/100% 100% no-repeat; }
 .hero > * { position:relative; z-index:1; }
 .eyebrow { margin:0 0 14px; font-size:11px; letter-spacing:.15em; text-transform:uppercase; font-weight:700; opacity:.78; }
 .hero h1 { max-width:840px; margin:0; font-family:var(--font-title); font-size:clamp(57px,10vw,142px); font-weight:400; line-height:.84; letter-spacing:-.07em; }
