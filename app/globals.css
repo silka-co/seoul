@@ -63,22 +63,6 @@ a { color:inherit; }
 .online-actions a:hover { text-decoration:underline; }
 .map-actions { display:flex; flex-direction:column; align-items:flex-end; gap:7px; white-space:nowrap; }
 .map-actions a { font-size:12px; font-weight:bold; color:var(--forest); }
-.note-box { margin-top:13px; border-top:1px solid var(--line); padding-top:10px; }
-.note-box summary { cursor:pointer; color:var(--forest); font-size:12px; font-weight:bold; }
-.note-content { padding-top:12px; }
-.saved-notes { display:grid; gap:8px; margin-bottom:12px; }
-.saved-note { display:grid; gap:8px; }
-.saved-notes p { margin:0; display:grid; gap:2px; color:var(--ink); font-size:13px; line-height:1.4; }
-.saved-notes strong { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--clay); }
-.saved-note img { width:min(100%, 620px); max-height:520px; object-fit:cover; border:1px solid var(--line); }
-.note-box form { display:grid; gap:9px; width:min(100%, 680px); }
-.note-box input,.note-box textarea { width:100%; background:#fff; border:1px solid var(--line); padding:8px; color:var(--ink); font:inherit; font-size:12px; }
-.note-box .image-input { border:0; padding:3px 0; background:transparent; }
-.note-box input { min-height:44px; }
-.note-box textarea { min-height:120px; resize:vertical; }
-.note-box button { width:max-content; background:var(--forest); border:0; color:#fff; padding:8px 11px; cursor:pointer; font:inherit; font-size:12px; }
-.note-box button:disabled { opacity:.6; cursor:wait; }
-.note-box small { color:var(--clay); }
 .need { background:var(--ink); color:var(--bg); max-width:none; padding-left:max(24px,calc((100vw - var(--content-max))/2)); padding-right:max(24px,calc((100vw - var(--content-max))/2)); }
 .need ol { padding-left:20px; line-height:2; }
 .need a { color:var(--bg); }
@@ -93,7 +77,6 @@ a { color:inherit; }
 .explore-card > p:not(.card-meta) { margin:0 0 12px; line-height:1.45; font-size:14px; color:var(--ink-secondary); }
 .explore-card code { display:block; font-family:var(--font-body); font-size:12px; line-height:1.45; color:var(--ink-secondary); margin-bottom:16px; }
 .explore-card .booking { align-self:flex-start; margin-top:auto; margin-bottom:14px; }
-.explore-card .note-box { margin-top:15px; }
 .explore-card .map-actions { margin-top:16px; align-items:flex-start; flex-direction:row; gap:14px; }
 .travel-tips { max-width:var(--content-max); margin:0 auto; padding:var(--content-pad); border-top:1px solid var(--ink); }
 .tip-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
@@ -109,4 +92,4 @@ a { color:inherit; }
 /* The Zandari Saturday card was removed; retain Friday as an itinerary option only. */
 .tip-grid > article:nth-child(6),.tip-grid > article.tip-wide:nth-of-type(7),.need ol li:nth-child(4) { display:none; }
 footer { padding:26px; text-align:center; color:var(--ink-secondary); font-size:13px; }
-@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.note-box form{width:100%}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
+@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
