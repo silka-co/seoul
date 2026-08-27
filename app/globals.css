@@ -29,13 +29,13 @@ a { color:inherit; }
 .hero-actions a,.booking { text-decoration:none; padding:12px 16px; border:1px solid currentColor; border-radius:999px; font-size:14px; }
 .hero-actions .quiet { opacity:.75; }
 .filters { position:sticky; top:0; z-index:3; display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); background:color-mix(in srgb,var(--bg) 93%,transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--divider); overflow:auto; }
-.filters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; cursor:pointer; font:inherit; font-size:14px; }
+.filters button { white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); padding:9px 13px; border-radius:99px; cursor:pointer; font:inherit; font-size:14px; -webkit-appearance:none; appearance:none; }
 .filters button:not(.selected):hover,.subfilters button:not(.selected):hover { background:rgba(0,0,0,.06); border-color:var(--ink-muted); }
 .filters .selected { background:var(--ink); color:white; border-color:var(--ink); }
 .filters .tab-link { white-space:nowrap; text-decoration:none; background:transparent; border:1px solid var(--line); padding:9px 13px; border-radius:99px; font-size:14px; }
 .filters .tab-link:hover { background:var(--ink); color:white; border-color:var(--ink); }
 .subfilters { display:flex; gap:8px; padding:14px clamp(20px,6vw,96px); border-bottom:1px solid var(--line); overflow:auto; }
-.subfilters button { white-space:nowrap; background:transparent; border:1px solid var(--line); padding:8px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px; }
+.subfilters button { white-space:nowrap; background:transparent; color:var(--ink); border:1px solid var(--line); padding:8px 12px; border-radius:99px; cursor:pointer; font:inherit; font-size:13px; -webkit-appearance:none; appearance:none; }
 .subfilters .selected { background:var(--forest); color:white; border-color:var(--forest); }
 .filters button:focus-visible,.subfilters button:focus-visible,.filters .tab-link:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
 .itinerary,.need { max-width:var(--content-max); margin:0 auto; padding:var(--content-pad); }
@@ -56,15 +56,15 @@ a { color:inherit; }
 .stop { display:flex; justify-content:space-between; gap:18px; padding:16px; margin-top:8px; border:1px solid var(--divider); background:rgba(255,255,255,.36); }
 .stop.option { border-style:dashed; background:rgba(255,255,255,.18); }
 .stop > div:first-child { flex:1; min-width:0; }
-.stop h4 { margin:0; font-size:16px; }
+.stop h4 { margin:0; font-size:16px; font-weight:400; }
 .stop p { margin:4px 0 8px; font-size:13px; color:var(--ink-secondary); }
 .stop code { display:block; font-family:var(--font-body); font-size:12px; line-height:1.45; color:var(--ink-secondary); }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
 .online-actions { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; }
-.online-actions a { color:var(--forest); font-size:12px; font-weight:bold; text-decoration:none; }
+.online-actions a { color:var(--forest); font-size:12px; font-weight:400; text-decoration:none; }
 .online-actions a:hover { text-decoration:underline; }
 .map-actions { display:flex; flex-direction:column; align-items:flex-end; gap:7px; white-space:nowrap; }
-.map-actions a { font-size:12px; font-weight:bold; color:var(--forest); }
+.map-actions a { font-size:12px; font-weight:400; color:var(--forest); }
 .need { background:var(--ink); color:var(--bg); max-width:none; padding-left:max(24px,calc((100vw - var(--content-max))/2)); padding-right:max(24px,calc((100vw - var(--content-max))/2)); }
 .need ol { padding-left:20px; line-height:2; }
 .need a { color:var(--bg); }
@@ -89,7 +89,7 @@ a { color:inherit; }
 .tip-grid ul { padding-left:18px; margin:0; display:grid; gap:9px; font-size:14px; line-height:1.45; }
 .tip-grid li::marker { color:var(--clay); }
 .tip-grid .tip-wide p:not(.tip-number) { max-width:680px; margin:0 0 15px; line-height:1.5; }
-.tip-link { display:inline-block; margin-top:20px; color:var(--forest); font-size:13px; font-weight:700; }
+.tip-link { display:inline-block; margin-top:20px; color:var(--forest); font-size:13px; font-weight:400; }
 .tip-footnote { max-width:700px; margin:18px 0 0; color:var(--ink-secondary); font-size:13px; line-height:1.45; }
 /* The Zandari Saturday card was removed; retain Friday as an itinerary option only. */
 .tip-grid > article:nth-child(6),.tip-grid > article.tip-wide:nth-of-type(7),.need ol li:nth-child(4) { display:none; }
