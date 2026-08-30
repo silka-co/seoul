@@ -52,6 +52,8 @@ a { color:inherit; }
 .description { max-width:610px; margin:18px 0 16px 155px; line-height:1.55; }
 .must { margin:0 0 22px 155px; padding-left:12px; border-left:3px solid var(--clay); max-width:650px; line-height:1.45; }
 .must span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.11em; font-weight:bold; color:var(--clay); margin-bottom:4px; }
+.focus { margin:0 0 14px 155px; max-width:650px; line-height:1.45; color:var(--ink-secondary); }
+.focus span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.11em; font-weight:bold; color:var(--clay); margin-bottom:4px; }
 .stops { margin-left:155px; max-width:760px; }
 .event-options { margin:18px 0 0 155px; max-width:760px; }
 .option-label { margin:0 0 8px; color:var(--clay); font-size:11px; font-weight:bold; letter-spacing:.11em; text-transform:uppercase; }
@@ -59,6 +61,8 @@ a { color:inherit; }
 .stop.option { border-style:dashed; background:rgba(255,255,255,.18); }
 .stop > div:first-child { flex:1; min-width:0; }
 .stop h4 { margin:0; font-size:16px; font-weight:400; }
+.stop-title { display:flex; align-items:baseline; gap:9px; }
+.stop-index { flex:0 0 auto; color:var(--clay); font-size:12px; font-weight:bold; }
 .stop p { margin:4px 0 8px; font-size:13px; color:var(--ink-secondary); }
 .stop code { display:block; font-family:var(--font-body); font-size:12px; line-height:1.45; color:var(--ink-secondary); }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
@@ -96,4 +100,4 @@ a { color:inherit; }
 /* The Zandari Saturday card was removed; retain Friday as an itinerary option only. */
 .tip-grid > article:nth-child(6),.tip-grid > article.tip-wide:nth-of-type(7),.need ol li:nth-child(4) { display:none; }
 footer { padding:26px; text-align:center; color:var(--ink-secondary); font-size:13px; }
-@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
+@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.focus,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
