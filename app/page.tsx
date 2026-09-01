@@ -94,8 +94,19 @@ const explore: ExploreStop[] = [
   { name: 'Omotesando Koffee London', korean: '8 Newman Street, London W1T 1PB, United Kingdom', note: 'Japanese-inspired Fitzrovia coffee bar with a pale timber interior and matcha', district: 'Elsewhere / reference', category: 'Coffee & tea', booking: 'https://ooo-koffee.com/' },
 ];
 
-function naver(query: string) { return `https://map.naver.com/p/search/${encodeURIComponent(query)}`; }
-function kakao(query: string) { return `https://map.kakao.com/link/search/${encodeURIComponent(query)}`; }
+const mapPlaceNameByAddress = new Map(
+  [
+    ...days.flatMap((day) => [...day.stops, ...(day.options ?? [])]),
+    ...explore,
+  ].map((stop) => [stop.korean, stop.name]),
+);
+
+function mapQuery(address: string) {
+  const placeName = mapPlaceNameByAddress.get(address);
+  return placeName ? `${placeName} ${address}` : address;
+}
+function naver(address: string) { return `https://map.naver.com/p/search/${encodeURIComponent(mapQuery(address))}`; }
+function kakao(address: string) { return `https://map.kakao.com/link/search/${encodeURIComponent(mapQuery(address))}`; }
 function webSearch(query: string) { return `https://www.google.com/search?q=${encodeURIComponent(query)}`; }
 function imageSearch(query: string) { return `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(`${query} Instagram`)}`; }
 function currentTripDate() { return new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', month: 'short', day: 'numeric' }).format(new Date()); }
