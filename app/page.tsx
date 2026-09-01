@@ -33,7 +33,6 @@ const explore: ExploreStop[] = [
   { name: 'MMCA Seoul', korean: '서울 종로구 삼청로 30 국립현대미술관 서울', note: 'National contemporary art museum', district: 'Jongno / Bukchon', category: 'Art & architecture', visited: true },
   { name: 'Jongno 3-ga Pojangmacha Street', korean: '서울 종로구 관수동 종로3가역 5·6번 출구 포장마차거리', note: 'Orange-tent late-night food stalls; stall hours vary, so go after 22:00 and bring cash', district: 'Jongno / Bukchon', category: 'Food & drinks', booking: 'https://english.visitkorea.or.kr/svc/contents/contentsView.do?vcontsId=215485', visited: true },
   { name: 'FUTURA SEOUL', korean: '서울 종로구 북촌로 61 푸투라서울', note: 'Es Devlin exhibition', district: 'Jongno / Bukchon', category: 'Art & architecture', booking: 'https://www.futuraseoul.org/57', visited: true },
-  { name: 'Kukje Gallery', korean: '서울 종로구 삼청로 54 국제갤러리', note: 'Contemporary gallery; SO–IL’s K3 pavilion is worth seeing in its own right', district: 'Jongno / Bukchon', category: 'Art & architecture', booking: 'https://www.kukjegallery.com/' },
   { name: 'Museum Hanmi Samcheong', korean: '서울 종로구 삼청로 11길 11 뮤지엄한미 삼청', note: 'Photography and contemporary art', district: 'Jongno / Bukchon', category: 'Art & architecture' },
   { name: 'Cafe Onion Anguk', korean: '서울 종로구 계동길 5 카페 어니언 안국점', note: 'Hanok bakery café — optional', district: 'Jongno / Bukchon', category: 'Coffee & tea' },
   { name: 'Cheongsudang', korean: '서울 종로구 돈화문로11나길 31-9 청수당', note: 'Dessert / tea close to home — optional', district: 'Jongno / Bukchon', category: 'Coffee & tea' },
