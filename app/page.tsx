@@ -61,6 +61,7 @@ const explore: ExploreStop[] = [
   { name: 'Wooyoungmi Seoul Flagship', korean: '서울 용산구 한남동 우영미 플래그십스토어', note: 'Architecture-led fashion store', district: 'Hannam / Itaewon', category: 'Fashion & design' },
   { name: 'Hyundai Card Art Library', korean: '서울 용산구 이태원로 248 현대카드 아트 라이브러리', note: 'DIVE app + photo ID required', district: 'Hannam / Itaewon', category: 'Wellness & work' },
   { name: 'Gongi', korean: '서울 용산구 이태원로45길 4 공기', note: 'Modern Korean dinner', district: 'Hannam / Itaewon', category: 'Food & drinks', booking: 'https://www.catchtable.net/shop/gonggi' },
+  { name: 'Aapex Bar', korean: '서울 용산구 한강대로21길 17-13 AAPEX BAR', note: 'Industrial cocktail and cultural space pairing scent-led drinks with electronic and audiovisual programming; check the night’s programme first.', district: 'Hannam / Itaewon', category: 'Food & drinks', booking: 'https://www.instagram.com/aapex_bar/' },
   { name: 'Hahouse Café', korean: '서울 용산구 이태원로54가길 8 2층 하우스', note: 'Concrete / timber café — optional', district: 'Hannam / Itaewon', category: 'Coffee & tea' },
   { name: 'Frieze House Seoul', korean: '서울 중구 동호로15길 17 프리즈 하우스 서울', note: 'Contemporary-art venue', district: 'Jung / Euljiro', category: 'Art & architecture' },
   { name: 'piknic — COMPANY: World Affair', korean: '서울 중구 퇴계로6가길 30 피크닉', note: 'COMPANY World Affair through Sep 6', district: 'Jung / Euljiro', category: 'Art & architecture', visited: true },
