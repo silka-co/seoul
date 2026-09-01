@@ -17,8 +17,10 @@
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
-body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); }
-a { color:inherit; }
+body { margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-optical-sizing:auto; font-synthesis:none; -webkit-font-smoothing:antialiased; }
+a { color:inherit; text-underline-offset:.18em; }
+h1,h2,h3,h4 { text-wrap:balance; }
+p,li { text-wrap:pretty; }
 .hero { position:relative; isolation:isolate; overflow:hidden; min-height:72vh; padding:clamp(32px,7vw,96px); display:flex; flex-direction:column; justify-content:flex-end; color:var(--bg); background:var(--ink); }
 .hero::before { content:''; position:absolute; z-index:0; inset:0; pointer-events:none; background:var(--bg); opacity:.8; -webkit-mask:url('/seoul/noise-circle-left.svg') left center/200% 200% no-repeat; mask:url('/seoul/noise-circle-left.svg') left center/200% 200% no-repeat; }
 .hero > * { position:relative; z-index:1; }
@@ -49,26 +51,32 @@ a { color:inherit; }
 .date { margin:0; font-size:25px; font-family:var(--font-title); }
 .day { margin:4px 0 0; font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-secondary); }
 .day-card h3 { font:400 clamp(28px,4vw,48px)/1 var(--font-title); letter-spacing:-.04em; margin:0; }
-.description { max-width:610px; margin:18px 0 16px 155px; line-height:1.55; }
-.must { margin:0 0 22px 155px; padding-left:12px; border-left:3px solid var(--clay); max-width:650px; line-height:1.45; }
+.description { max-width:62ch; margin:18px 0 18px 155px; font-size:15px; line-height:1.65; color:var(--ink-secondary); }
+.must { margin:0 0 22px 155px; padding:14px 16px; border-left:3px solid var(--clay); max-width:650px; background:rgba(255,255,255,.28); line-height:1.5; }
 .must span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.11em; font-weight:bold; color:var(--clay); margin-bottom:4px; }
+.must .readable-copy p { margin:5px 0 0; }
+.must .readable-copy ul { margin:8px 0 0; padding-left:19px; display:grid; gap:7px; list-style:disc; font-size:14px; }
+.must .readable-copy li::marker { color:var(--clay); }
 .focus { margin:0 0 14px 155px; max-width:650px; line-height:1.45; color:var(--ink-secondary); }
 .focus span { display:block; font-size:11px; text-transform:uppercase; letter-spacing:.11em; font-weight:bold; color:var(--clay); margin-bottom:4px; }
 .stops { margin-left:155px; max-width:760px; }
 .event-options { margin:18px 0 0 155px; max-width:760px; }
 .option-label { margin:0 0 8px; color:var(--clay); font-size:11px; font-weight:bold; letter-spacing:.11em; text-transform:uppercase; }
-.stop { display:flex; justify-content:space-between; gap:18px; padding:16px; margin-top:8px; border:1px solid var(--divider); background:rgba(255,255,255,.36); }
+.stop { display:flex; justify-content:space-between; gap:22px; padding:20px; margin-top:10px; border:1px solid var(--divider); background:rgba(255,255,255,.36); }
 .stop.option { border-style:dashed; background:rgba(255,255,255,.18); }
 .stop > div:first-child { flex:1; min-width:0; }
-.stop h4 { margin:0; font-size:16px; font-weight:400; }
+.stop h4 { margin:0; font-size:17px; line-height:1.3; font-weight:550; }
 .stop-title { display:flex; align-items:baseline; gap:9px; }
 .stop-index { flex:0 0 auto; color:var(--clay); font-size:12px; font-weight:bold; }
-.stop p { margin:4px 0 8px; font-size:13px; line-height:1.55; white-space:pre-line; color:var(--ink-secondary); }
+.readable-copy { max-width:64ch; }
+.readable-copy p { margin:7px 0 10px; font-size:13px; line-height:1.62; color:var(--ink-secondary); }
+.readable-copy ul { margin:9px 0 12px; padding-left:19px; display:grid; gap:8px; list-style:disc; font-size:13px; line-height:1.55; color:var(--ink-secondary); }
+.readable-copy li::marker { color:var(--clay); }
 .stop code { display:block; font-family:var(--font-body); font-size:12px; line-height:1.45; color:var(--ink-secondary); }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
 .online-actions { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; }
-.online-actions a { color:var(--forest); font-size:12px; font-weight:400; text-decoration:none; }
-.online-actions a:hover { text-decoration:underline; }
+.online-actions a { color:var(--forest); font-size:12px; font-weight:500; text-decoration:underline; text-decoration-color:transparent; transition:text-decoration-color 160ms ease-out; }
+.online-actions a:hover { text-decoration-color:currentColor; }
 .map-actions { display:flex; flex-direction:column; align-items:flex-end; gap:7px; white-space:nowrap; }
 .map-actions a { font-size:12px; font-weight:400; color:var(--forest); }
 .need { background:var(--ink); color:var(--bg); max-width:none; padding-left:max(24px,calc((100vw - var(--content-max))/2)); padding-right:max(24px,calc((100vw - var(--content-max))/2)); }
@@ -100,4 +108,4 @@ a { color:inherit; }
 /* The Zandari Saturday card was removed; retain Friday as an itinerary option only. */
 .tip-grid > article:nth-child(6),.tip-grid > article.tip-wide:nth-of-type(7),.need ol li:nth-child(4) { display:none; }
 footer { padding:26px; text-align:center; color:var(--ink-secondary); font-size:13px; }
-@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.focus,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
+@media(max-width:620px){ .hero{min-height:64vh;padding:32px 22px}.itinerary{padding:52px 16px}.day-card header{grid-template-columns:1fr;gap:7px}.description,.focus,.must,.stops,.event-options{margin-left:0}.stop{flex-direction:column;padding:17px}.map-actions{align-items:flex-start;flex-direction:row;gap:14px}.need{padding:48px 24px}.explore-grid,.tip-grid{grid-template-columns:1fr}.explore-card{min-height:0}.travel-tips{padding:56px 16px}.tip-grid article{min-height:0}.tip-grid .tip-wide{grid-column:auto} }
