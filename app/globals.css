@@ -63,7 +63,7 @@ a { color:inherit; }
 .stop h4 { margin:0; font-size:16px; font-weight:400; }
 .stop-title { display:flex; align-items:baseline; gap:9px; }
 .stop-index { flex:0 0 auto; color:var(--clay); font-size:12px; font-weight:bold; }
-.stop p { margin:4px 0 8px; font-size:13px; color:var(--ink-secondary); }
+.stop p { margin:4px 0 8px; font-size:13px; line-height:1.55; white-space:pre-line; color:var(--ink-secondary); }
 .stop code { display:block; font-family:var(--font-body); font-size:12px; line-height:1.45; color:var(--ink-secondary); }
 .booking { display:inline-block; margin-top:10px; font-size:12px; padding:7px 9px; }
 .online-actions { display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:12px; }
