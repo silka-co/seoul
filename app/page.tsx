@@ -23,6 +23,38 @@ const days: Day[] = [
   { date: 'Sep 6', day: 'Sun · departure', theme: 'Secret Garden & airport day', description: 'Visit the garden close to home, then collect your bags and leave from Seoul Station around 15:20–15:30.', focus: 'Changdeokgung Secret Garden', focusLabel: 'Garden focus', stops: [{ name: 'Changdeokgung Secret Garden (Huwon)', korean: '서울 종로구 율곡로 99 창덕궁 후원', note: 'The best palace-garden choice: natural woodland, ponds and pavilions. Allow about 90 minutes; September hours 10:00–17:30, with final entry at 16:00.', booking: 'https://ticket.uforus.co.kr/web/main?lang=en' }, { name: 'Incheon Terminal 1', korean: '인천국제공항 제1여객터미널', note: 'Teresa' }, { name: 'Incheon Terminal 2', korean: '인천국제공항 제2여객터미널', note: 'Silka' }], must: 'Reserve an early timed Secret Garden entry, allow about 90 minutes, then return for your bags before leaving for Seoul Station.' },
 ];
 
+const itineraryDistricts: Record<string, string> = {
+  'Design Miami Seoul — recommended route': 'Dongdaemun · Jung-gu',
+  'Gangnam Art Salon — Cheongdam Night starting hub': 'Dosan Park · Gangnam-gu',
+  'White Cube Seoul — Marina Rheingantz: Míope': 'Dosan Park · Gangnam-gu',
+  'SONGEUN — Generative Forms': 'Cheongdam · Gangnam-gu',
+  'Platform-L — PLAP 10 Party': 'Nonhyeon · Gangnam-gu',
+  'The Book Society Hoehyeon': 'Hoehyeon · Jung-gu',
+  'Gallery Hyundai — Samcheong Night': 'Samcheong · Jongno-gu',
+  'Cassina Store Seoul Samcheong': 'Samcheong / Bukchon · Jongno-gu',
+  'Aapex Bar': 'Yongsan · Yongsan-gu',
+  'Art Sonje Center — Samcheong Night Party': 'Samcheong · Jongno-gu',
+  'Soluna Fine Art — Material Bar': 'Seochon · Jongno-gu',
+  'Art Space 3 — Fi Jae Lee artist talk': 'Seochon · Jongno-gu',
+  'ADER Space 3.0 Sinsa': 'Sinsa · Gangnam-gu',
+  'HAUS NOWHERE Dosan': 'Dosan / Sinsa · Gangnam-gu',
+  'MECLADS Dosan': 'Dosan · Gangnam-gu',
+  'JUUN.J Dosan Flagship': 'Cheongdam / Dosan · Gangnam-gu',
+  'WE11DONE Cheongdam': 'Cheongdam · Gangnam-gu',
+  'BEAKER Cheongdam Flagship': 'Cheongdam · Gangnam-gu',
+  'House of Dior Seoul': 'Cheongdam · Gangnam-gu',
+  '10 Corso Como Cheongdam': 'Cheongdam · Gangnam-gu',
+  'Maison Margiela — The Hyundai Seoul': 'Yeouido · Yeongdeungpo-gu',
+  'SAN SAN GEAR — The Hyundai Seoul': 'Yeouido · Yeongdeungpo-gu',
+  'D&DEPARTMENT SEOUL by MMMG': 'Seogyo · Mapo-gu',
+  'Fox Vintage Seoul Forest': 'Seoul Forest / Seongsu · Seongdong-gu',
+  'LCDC Seoul': 'Seongsu · Seongdong-gu',
+  'Seoul Light DDP 2026 Autumn — Saturday live programme': 'Dongdaemun · Jung-gu',
+  'Changdeokgung Secret Garden (Huwon)': 'Changdeokgung / Jongno · Jongno-gu',
+  'Incheon Terminal 1': 'Incheon Airport · Jung-gu, Incheon',
+  'Incheon Terminal 2': 'Incheon Airport · Jung-gu, Incheon',
+};
+
 for (const day of days) {
   for (const stop of [...day.stops, ...(day.options ?? [])]) {
     if (stop.visited) stop.note = `✓ Been · ${stop.note}`;
@@ -134,7 +166,8 @@ function ReadableCopy({ text, forceList = false }: { text: string; forceList?: b
 }
 
 function StopCard({ stop, index, optional = false, imageLink = true }: { stop: Stop; index: number; optional?: boolean; imageLink?: boolean }) {
-  return <div className={`stop${optional ? ' option' : ''}`}><div><div className="stop-title"><span className="stop-index" aria-hidden="true">{index}</span><h4>{stop.name}</h4></div><ReadableCopy text={stop.note} /><code>{stop.korean}</code><div className="online-actions">{stop.booking && <a href={stop.booking} target="_blank">Official / booking ↗</a>}{stop.links?.map((link) => <a href={link.url} target="_blank" key={link.url}>{link.label}</a>)}<a href={webSearch(`${stop.name} Seoul reviews official`)} target="_blank">Web & reviews ↗</a>{imageLink && <a href={imageSearch(stop.name)} target="_blank">Image / Instagram search ↗</a>}</div></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>;
+  const district = itineraryDistricts[stop.name];
+  return <div className={`stop${optional ? ' option' : ''}`}><div><div className="stop-title"><span className="stop-index" aria-hidden="true">{index}</span><h4>{stop.name}</h4></div>{district && <p className="stop-location">{district}</p>}<ReadableCopy text={stop.note} /><code>{stop.korean}</code><div className="online-actions">{stop.booking && <a href={stop.booking} target="_blank">Official / booking ↗</a>}{stop.links?.map((link) => <a href={link.url} target="_blank" key={link.url}>{link.label}</a>)}<a href={webSearch(`${stop.name} Seoul reviews official`)} target="_blank">Web & reviews ↗</a>{imageLink && <a href={imageSearch(stop.name)} target="_blank">Image / Instagram search ↗</a>}</div></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>;
 }
 
 function currentTripDate() { return new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', month: 'short', day: 'numeric' }).format(new Date()); }
