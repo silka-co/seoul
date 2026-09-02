@@ -25,6 +25,11 @@
 
 ## Stable trip decisions
 
+- The travelers’ home base is `서울 종로구 창덕궁길 59-2`, near Changdeokgung in Jongno. Treat “near us” or “near the accommodation” as this address unless the user says they are elsewhere.
+- Places confirmed visited include Design Miami Seoul, Maison Margiela at The Hyundai Seoul, SAN SAN GEAR at The Hyundai Seoul, and Jongno 3-ga Pojangmacha Street. Keep their subtle `✓ Been` history, exclude them from “not yet visited” recommendations, and do not place them on future active itinerary days.
+- The Book Society Hoehyeon has not been visited. It is open Wednesday–Sunday 13:00–19:00 and closed Monday–Tuesday; it is roughly 30–40 minutes from the accommodation by public transport rather than immediately nearby.
+- Aapex Bar has not been visited. It is in Yongsan at `서울 용산구 한강대로21길 17-13` and is roughly 40–50 minutes from the accommodation by public transport, so do not describe it as a nearby Jongno option.
+- Cassina Store Seoul Samcheong was explicitly removed from the itinerary. Do not re-add it unless the user asks.
 - The Book Society is closed Monday and Tuesday; never place it on Tuesday without verified evidence of a special opening.
 - Hongje Yuyeon beneath Yujin Complex is the requested nighttime light-and-sound visit. Do not describe it as a laser show unless a verified temporary laser programme exists.
 - Changdeokgung Secret Garden (Huwon) is the chosen palace-garden experience. The travelers care about the garden, not the palace interiors or changing-of-the-guard ceremony.
