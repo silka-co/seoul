@@ -25,13 +25,23 @@ const days: Day[] = [
 
 const todayShoppingAlternatives: Stop[] = [
   { name: 'The Book Society Hoehyeon', korean: '서울 중구 퇴계로4길 2 로컬스티치 C동 3층 더북소사이어티', note: 'Optional art-and-design bookshop after Design Miami; roughly 15–20 minutes from DDP by Line 4 plus walking. Open Wednesday–Sunday 13:00–19:00; closed Monday–Tuesday.', booking: 'https://www.thebooksociety.org/' },
-  { name: 'Cassina Store Seoul Samcheong', korean: '서울 종로구 북촌로5길 74 카시나 서울 삼청', note: 'Optional design-furniture and interiors browse; roughly 25–35 minutes from DDP by public transport. Open daily 10:00–19:00.', booking: 'https://www.cassina.com/ww/en/store-locator/cassina-store-seoul-samcheong-009505-1.html' },
   { name: 'Maison Margiela — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 2층 메종 마르지엘라', note: 'Optional department-store detour for fashion, shoes, leather goods, accessories and fragrance. This is farther from DDP—allow roughly 40–50 minutes by public transport. Open Wednesday 10:30–20:00.', booking: 'https://www.maisonmargiela.com/stores/maison-margiela-the-hyundai-seoul' },
   { name: 'SAN SAN GEAR — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 지하 2층 산산기어', note: 'Optional technical-fashion stop on B2 Creative Ground in the same building as Maison Margiela. Open Wednesday 10:30–20:00.', booking: 'https://sansangear.com/pages/stores' },
 ];
 
 const today = days.find((day) => day.date === 'Sep 2');
 if (today) today.options = [...(today.options ?? []), ...todayShoppingAlternatives];
+
+for (const day of days) {
+  day.stops = day.stops.filter((stop) => stop.name !== 'Cassina Store Seoul Samcheong');
+  if (day.options) day.options = day.options.filter((stop) => stop.name !== 'Cassina Store Seoul Samcheong');
+}
+
+const september3 = days.find((day) => day.date === 'Sep 3');
+if (september3) {
+  september3.focus = 'Independent publishing · Kim Bohie · Christine Sun Kim · Korean craft · audiovisual culture';
+  september3.must = 'No Frieze ticket is needed. Allow roughly 30–40 minutes by public transport from Hoehyeon to Samcheong and 40–50 minutes from Samcheong to Aapex; the Samcheong stops are walkable.';
+}
 
 const completedToday = new Set([
   'Design Miami Seoul — recommended route',
@@ -61,7 +71,6 @@ const itineraryDistricts: Record<string, string> = {
   'Platform-L — PLAP 10 Party': 'Nonhyeon · Gangnam-gu',
   'The Book Society Hoehyeon': 'Hoehyeon · Jung-gu',
   'Gallery Hyundai — Samcheong Night': 'Samcheong · Jongno-gu',
-  'Cassina Store Seoul Samcheong': 'Samcheong / Bukchon · Jongno-gu',
   'Aapex Bar': 'Yongsan · Yongsan-gu',
   'Art Sonje Center — Samcheong Night Party': 'Samcheong · Jongno-gu',
   'Soluna Fine Art — Material Bar': 'Seochon · Jongno-gu',
@@ -87,7 +96,6 @@ const itineraryDistricts: Record<string, string> = {
 
 const itineraryHours: Record<string, string> = {
   'The Book Society Hoehyeon': 'Wed–Sun 13:00–19:00; closed Mon–Tue.',
-  'Cassina Store Seoul Samcheong': 'Daily 10:00–19:00. Samcheong Night presentation: Thu 3 Sep 18:30–22:00.',
   'White Cube Seoul — Marina Rheingantz: Míope': 'Daytime: Tue–Sat 10:00–18:00; closed Sun–Mon. Cheongdam Night: Wed 2 Sep 18:00–22:00.',
   'SONGEUN — Generative Forms': 'Daytime: Mon–Sat 11:00–18:30; last entry 18:10; closed Sun and public holidays. Cheongdam Night: Wed 2 Sep until 22:00.',
   'Platform-L — PLAP 10 Party': 'Regular hours: Tue–Sun 11:00–20:00; last exhibition entry 19:30; closed Mon. PLAP 10 reception: Wed 2 Sep 17:00–21:00.',
