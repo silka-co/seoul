@@ -69,6 +69,8 @@ p,li { text-wrap:pretty; }
 .stop-title { display:flex; align-items:baseline; gap:9px; }
 .stop-index { flex:0 0 auto; color:var(--clay); font-size:12px; font-weight:bold; }
 .stop-location { margin:6px 0 0 21px; color:var(--clay); font-size:11px; font-weight:650; letter-spacing:.06em; text-transform:uppercase; }
+.stop-hours { margin:9px 0 0 21px; max-width:62ch; color:var(--ink-secondary); font-size:12px; line-height:1.5; }
+.stop-hours strong { color:var(--ink); font-weight:650; }
 .readable-copy { max-width:64ch; }
 .readable-copy p { margin:7px 0 10px; font-size:13px; line-height:1.62; color:var(--ink-secondary); }
 .readable-copy ul { margin:9px 0 12px; padding-left:19px; display:grid; gap:8px; list-style:disc; font-size:13px; line-height:1.55; color:var(--ink-secondary); }

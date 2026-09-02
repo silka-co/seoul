@@ -55,6 +55,20 @@ const itineraryDistricts: Record<string, string> = {
   'Incheon Terminal 2': 'Incheon Airport · Jung-gu, Incheon',
 };
 
+const itineraryHours: Record<string, string> = {
+  'White Cube Seoul — Marina Rheingantz: Míope': 'Daytime: Tue–Sat 10:00–18:00; closed Sun–Mon. Cheongdam Night: Wed 2 Sep 18:00–22:00.',
+  'SONGEUN — Generative Forms': 'Daytime: Mon–Sat 11:00–18:30; last entry 18:10; closed Sun and public holidays. Cheongdam Night: Wed 2 Sep until 22:00.',
+  'Platform-L — PLAP 10 Party': 'Regular hours: Tue–Sun 11:00–20:00; last exhibition entry 19:30; closed Mon. PLAP 10 reception: Wed 2 Sep 17:00–21:00.',
+  'Gallery Hyundai — Samcheong Night': 'Daytime: Tue–Sun 10:00–18:00; closed Mon. Samcheong Night: Thu 3 Sep until 23:00.',
+  'Art Sonje Center — Samcheong Night Party': 'Daytime: Tue–Sun 12:00–19:00; closed Mon. Samcheong Night party: Thu 3 Sep 19:00–22:00 with registration.',
+  'Soluna Fine Art — Material Bar': 'Seoul office hours: Mon–Fri 10:00–18:00. Material Bar: Thu 3 Sep 18:00–21:00; contact ahead for a daytime visit.',
+  'Art Space 3 — Fi Jae Lee artist talk': 'Daytime: Tue–Sat 10:30–18:00; closed Sun–Mon. Artist talk: Thu 3 Sep 19:30–20:30.',
+};
+
+const itineraryExtraAddresses: Record<string, string[]> = {
+  'Gallery Hyundai — Samcheong Night': ['Second exhibition: 서울 종로구 삼청로 8 현대화랑'],
+};
+
 for (const day of days) {
   for (const stop of [...day.stops, ...(day.options ?? [])]) {
     if (stop.visited) stop.note = `✓ Been · ${stop.note}`;
@@ -167,7 +181,9 @@ function ReadableCopy({ text, forceList = false }: { text: string; forceList?: b
 
 function StopCard({ stop, index, optional = false, imageLink = true }: { stop: Stop; index: number; optional?: boolean; imageLink?: boolean }) {
   const district = itineraryDistricts[stop.name];
-  return <div className={`stop${optional ? ' option' : ''}`}><div><div className="stop-title"><span className="stop-index" aria-hidden="true">{index}</span><h4>{stop.name}</h4></div>{district && <p className="stop-location">{district}</p>}<ReadableCopy text={stop.note} /><code>{stop.korean}</code><div className="online-actions">{stop.booking && <a href={stop.booking} target="_blank">Official / booking ↗</a>}{stop.links?.map((link) => <a href={link.url} target="_blank" key={link.url}>{link.label}</a>)}<a href={webSearch(`${stop.name} Seoul reviews official`)} target="_blank">Web & reviews ↗</a>{imageLink && <a href={imageSearch(stop.name)} target="_blank">Image / Instagram search ↗</a>}</div></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>;
+  const hours = itineraryHours[stop.name];
+  const extraAddresses = itineraryExtraAddresses[stop.name] ?? [];
+  return <div className={`stop${optional ? ' option' : ''}`}><div><div className="stop-title"><span className="stop-index" aria-hidden="true">{index}</span><h4>{stop.name}</h4></div>{district && <p className="stop-location">{district}</p>}{hours && <p className="stop-hours"><strong>Opening hours:</strong> {hours}</p>}<ReadableCopy text={stop.note} /><code>{stop.korean}</code>{extraAddresses.map((address) => <code key={address}>{address}</code>)}<div className="online-actions">{stop.booking && <a href={stop.booking} target="_blank">Official / booking ↗</a>}{stop.links?.map((link) => <a href={link.url} target="_blank" key={link.url}>{link.label}</a>)}<a href={webSearch(`${stop.name} Seoul reviews official`)} target="_blank">Web & reviews ↗</a>{imageLink && <a href={imageSearch(stop.name)} target="_blank">Image / Instagram search ↗</a>}</div></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></div>;
 }
 
 function currentTripDate() { return new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Seoul', month: 'short', day: 'numeric' }).format(new Date()); }
