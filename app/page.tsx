@@ -33,6 +33,26 @@ const todayShoppingAlternatives: Stop[] = [
 const today = days.find((day) => day.date === 'Sep 2');
 if (today) today.options = [...(today.options ?? []), ...todayShoppingAlternatives];
 
+const completedToday = new Set([
+  'Design Miami Seoul — recommended route',
+  'Maison Margiela — The Hyundai Seoul',
+  'SAN SAN GEAR — The Hyundai Seoul',
+]);
+if (today) {
+  for (const stop of [...today.stops, ...(today.options ?? [])]) {
+    if (completedToday.has(stop.name)) stop.visited = true;
+  }
+}
+
+const september5 = days.find((day) => day.date === 'Sep 5');
+if (september5) {
+  september5.theme = 'Seogyo & Seongsu design';
+  september5.description = 'A west-to-east design day: return properly to D&DEPARTMENT, then finish with designer vintage and independent retail in Seongsu.';
+  september5.focus = 'Korean design · designer vintage · LCDC Seoul';
+  september5.stops = september5.stops.filter((stop) => !completedToday.has(stop.name));
+  september5.must = 'No booking is needed for the shops or Seoul Light. Allow roughly 50–60 minutes by public transport from Seogyo to Seongsu, followed by a short local transfer between Fox Vintage and LCDC.';
+}
+
 const itineraryDistricts: Record<string, string> = {
   'Design Miami Seoul — recommended route': 'Dongdaemun · Jung-gu',
   'Gangnam Art Salon — Cheongdam Night starting hub': 'Dosan Park · Gangnam-gu',
@@ -118,6 +138,8 @@ const explore: ExploreStop[] = [
   { name: 'Leeum Museum of Art', korean: '서울 용산구 이태원로55길 60-16 리움미술관', note: 'OMA, Mario Botta and Jean Nouvel', district: 'Hannam / Itaewon', category: 'Art & architecture', booking: 'https://ticket.leeum.org/leeum/personal/exhibitList.do', visited: true },
   { name: 'SAN SAN GEAR Hannam', korean: '서울 용산구 이태원로55길 37-10 산산기어 한남', note: 'New fashion flagship in a former house', district: 'Hannam / Itaewon', category: 'Fashion & design' },
   { name: 'D&DEPARTMENT SEOUL by MMMG', korean: '서울 마포구 월드컵북로5길 41 1층 로컬스티치 크리에이터 타운 서교', note: 'Design objects, stationery and food; 11:30–19:00, +82 2-332-1520', district: 'Yeonnam / Hongdae', category: 'Fashion & design', booking: 'https://www.d-department.com/ext/shop/seoul.html' },
+  { name: 'Maison Margiela — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 2층 메종 마르지엘라', note: 'Dedicated fashion, shoes, leather goods, accessories and fragrance store on 2F.', district: 'Yeouido', category: 'Fashion & design', booking: 'https://www.maisonmargiela.com/stores/maison-margiela-the-hyundai-seoul', visited: true },
+  { name: 'SAN SAN GEAR — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 지하 2층 산산기어', note: 'Technical Korean fashion store on B2 Creative Ground.', district: 'Yeouido', category: 'Fashion & design', booking: 'https://sansangear.com/pages/stores', visited: true },
   { name: 'Wooyoungmi Seoul Flagship', korean: '서울 용산구 한남동 우영미 플래그십스토어', note: 'Architecture-led fashion store', district: 'Hannam / Itaewon', category: 'Fashion & design' },
   { name: 'Hyundai Card Art Library', korean: '서울 용산구 이태원로 248 현대카드 아트 라이브러리', note: 'DIVE app + photo ID required', district: 'Hannam / Itaewon', category: 'Wellness & work' },
   { name: 'Gongi', korean: '서울 용산구 이태원로45길 4 공기', note: 'Modern Korean dinner', district: 'Hannam / Itaewon', category: 'Food & drinks', booking: 'https://www.catchtable.net/shop/gonggi' },
