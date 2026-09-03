@@ -38,9 +38,27 @@ for (const day of days) {
 }
 
 const september3 = days.find((day) => day.date === 'Sep 3');
+const september4 = days.find((day) => day.date === 'Sep 4');
 if (september3) {
   september3.focus = 'Independent publishing · Kim Bohie · Christine Sun Kim · Korean craft · audiovisual culture';
   september3.must = 'No Frieze ticket is needed. Allow roughly 30–40 minutes by public transport from Hoehyeon to Samcheong and 40–50 minutes from Samcheong to Aapex; the Samcheong stops are walkable.';
+}
+
+if (september3 && september4) {
+  const ader = september4.stops.find((stop) => stop.name === 'ADER Space 3.0 Sinsa');
+  if (ader) {
+    ader.visited = true;
+    september3.stops = [ader, ...september3.stops];
+  }
+  september4.stops = september4.stops.filter((stop) => ![
+    'ADER Space 3.0 Sinsa',
+    'HAUS NOWHERE Dosan',
+    'MECLADS Dosan',
+  ].includes(stop.name));
+  september4.theme = 'Dosan & Cheongdam fashion';
+  september4.description = 'A relaxed designer-shopping route through Dosan and Cheongdam, with room for fittings, lunch and the optional stops.';
+  september4.focus = 'JUUN.J · WE11DONE';
+  september4.must = 'JUUN.J and WE11DONE are the two planned shops. Add an optional stop only if you have the time and energy for it.';
 }
 
 const completedToday = new Set([
@@ -134,7 +152,7 @@ const explore: ExploreStop[] = [
   { name: 'Fox Vintage Seoul Forest', korean: '서울 성동구 서울숲6길 10 지하1층 폭스빈티지 서울숲', note: 'Curated designer vintage, often including Comme des Garçons, Jil Sander, Vivienne Westwood and Missoni; reported daily 13:00–21:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://seoul.vintagefox.kr/' },
   { name: 'HAUS NOWHERE + NUDAKE Tea House', korean: '서울 성동구 뚝섬로 433 하우스 노웨어 서울', note: 'Conceptual retail; Tea House on 5F', district: 'Seongsu', category: 'Fashion & design', booking: 'https://nudake.com/kr/store/tea-house/' },
   { name: 'Tamburins Seongsu', korean: '서울 성동구 성수동 탬버린즈 성수', note: 'Retail architecture', district: 'Seongsu', category: 'Fashion & design' },
-  { name: 'ADER Space 3.0 Sinsa', korean: '서울 강남구 도산대로11길 31 아더 스페이스 3.0', note: 'Immersive ADER error flagship combining fashion with installation-like interiors; daily 11:00–21:00.', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://www.adererror.com/' },
+  { name: 'ADER Space 3.0 Sinsa', korean: '서울 강남구 도산대로11길 31 아더 스페이스 3.0', note: 'Immersive ADER error flagship combining fashion with installation-like interiors; daily 11:00–21:00.', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://www.adererror.com/', visited: true },
   { name: 'Dior Seongsu', korean: '서울 성동구 성수동 디올 성수', note: 'Check current public access', district: 'Seongsu', category: 'Fashion & design' },
   { name: 'Foreplan', korean: '서울 성동구 왕십리로14길 30-11 포플랜', note: 'Coffee/brunch — optional', district: 'Seongsu', category: 'Coffee & tea' },
   { name: 'Hrr Café', korean: '서울 서초구 잠원로 201-12 흐르르', note: 'Bricol Lab’s bright riverside café and bakery by Jamwon Hangang Park', district: 'Banpo / Seocho', category: 'Coffee & tea', booking: 'https://www.archdaily.com/983797/hrr-cafe-bricol-lab' },
