@@ -91,6 +91,12 @@ const artSpaceThree: Stop = {
   note: 'Small Seochon contemporary-art stop. Open Tue–Sat 10:30–18:00; closed Sunday–Monday.',
   booking: 'https://artspace3.com/',
 };
+const gallery27Seongsu: Stop = {
+  name: 'Gallery27 Seongsu — Ki Kim',
+  korean: '서울 성동구 동일로 27 2층 갤러리27',
+  note: 'Contemporary-art gallery showing Ki Kim’s solo exhibition through 19 September. Open Tuesday–Friday 10:00–18:00; closed Sunday–Monday.',
+  booking: 'https://gallery27ss.com/',
+};
 const insadongSpa: Stop = {
   name: 'Insadong SPA & Sauna',
   korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막',
@@ -128,12 +134,12 @@ if (september3 && september4) {
   const movedFromThursday = new Set(['The Book Society Hoehyeon', 'Gallery Hyundai — Samcheong Night']);
   september3.stops = [...todayVisits, ...september3.stops.filter((stop) => !todayVisitNames.has(stop.name) && !movedFromThursday.has(stop.name))];
   september3.options = undefined;
-  september4.stops = [bookSocietyHoehyeon, galleryHyundaiFriday, museumHanmiSamcheong, artSpaceThree, ...(aapex ? [aapex] : [])];
+  september4.stops = [gallery27Seongsu, potterySeongsu, twentyNineCmHome, pointOfViewSeoul, narrativeObject, bookSocietyHoehyeon, ...(aapex ? [aapex] : [])];
   september4.options = undefined;
-  september4.theme = 'Samcheong, Seochon & Aapex';
-  september4.description = 'A focused central art route: art books in Hoehyeon, then Samcheong and Seochon galleries, ending at Aapex in Yongsan.';
-  september4.focus = 'Independent publishing · contemporary art · cocktails';
-  september4.must = 'Begin at The Book Society from 13:00, then take a short taxi or bus to Samcheong. Gallery Hyundai and Museum Hanmi are close together; walk west to Art Space 3 before its 18:00 close. Aapex is the Friday-evening finish—confirm its live programme before taking a 15–20 minute taxi from Seochon.';
+  september4.theme = 'Seongsu shopping, art books & Aapex';
+  september4.description = 'A westbound Friday: design and ceramics shopping around Seongsu, art books in Hoehyeon, then an Aapex nightcap in Yongsan.';
+  september4.focus = 'Contemporary art · Korean design · ceramics · independent publishing · cocktails';
+  september4.must = 'Start at Gallery27 when it opens at 10:00, then continue through the Seongsu shops: POTTERY, 29CM HOME from 11:00, then Point of View and Narrative Object from noon. After the Seongsu browse, take a taxi to The Book Society once it is open at 13:00, then continue to Aapex in the evening. Confirm Aapex’s live programme before going.';
 }
 
 if (september3 && aapex) {
@@ -156,15 +162,15 @@ const september5 = days.find((day) => day.date === 'Sep 5');
 if (september5) {
   const dDepartment = september5.stops.find((stop) => stop.name === 'D&DEPARTMENT SEOUL by MMMG');
   const existingOptions = september5.options ?? [];
-  september5.theme = 'Seongsu shops & Insadong spa afternoon';
-  september5.description = 'Keep the day deliberately light: a compact Seongsu browse, then travel directly to Insadong for an unhurried afternoon massage, sauna and baths.';
-  september5.focus = 'Korean design · ceramics · wellness';
-  september5.stops = [potterySeongsu, pointOfViewSeoul, twentyNineCmHome, narrativeObject, insadongSpa];
+  september5.theme = 'Samcheong, Seochon & Insadong spa';
+  september5.description = 'See the central galleries in a compact morning-and-lunch route, then keep the rest of the day free for a spontaneous massage, sauna and baths near home.';
+  september5.focus = 'Contemporary art · wellness';
+  september5.stops = [galleryHyundaiFriday, museumHanmiSamcheong, artSpaceThree, insadongSpa];
   september5.options = [
     ...(dDepartment ? [dDepartment] : []),
     ...existingOptions,
   ];
-  september5.must = 'POTTERY opens at 10:00 and Point of View at noon; keep the Seongsu browse to the morning and early afternoon. 29CM HOME is a required stop before Narrative Object. Leave for Insadong in time for your massage, then keep the evening free. D&DEPARTMENT is optional only; Seoul Light remains an optional evening plan if you decide you want one.';
+  september5.must = 'Start at Gallery Hyundai at 10:00, then walk a few minutes to Museum Hanmi. Continue west to Art Space 3 (about 20 minutes on foot; it opens 10:30), have lunch in Seochon, then go to Insadong SPA whenever you feel ready—nothing is planned after it. D&DEPARTMENT is a longer optional detour; Seoul Light remains optional only if you change your mind about an evening plan.';
 }
 
 const itineraryDistricts: Record<string, string> = {
@@ -183,6 +189,7 @@ const itineraryDistricts: Record<string, string> = {
   'Gallery Hyundai': 'Samcheong · Jongno-gu',
   'Museum Hanmi Samcheong': 'Samcheong · Jongno-gu',
   'Art Space 3': 'Seochon · Jongno-gu',
+  'Gallery27 Seongsu — Ki Kim': 'Seongsu · Seongdong-gu',
   'Insadong SPA & Sauna': 'Insadong · Jongno-gu',
   'Maison Margiela Hannam Flagship & Café': 'Hannam · Yongsan-gu',
   'ADER Space 3.0 Sinsa': 'Sinsa · Gangnam-gu',
@@ -222,6 +229,7 @@ const itineraryHours: Record<string, string> = {
   'Gallery Hyundai': 'Tue–Sun 10:00–18:00; closed Monday.',
   'Museum Hanmi Samcheong': 'Tue–Sun 10:00–18:00; closed Monday.',
   'Art Space 3': 'Tue–Sat 10:30–18:00; closed Sunday–Monday.',
+  'Gallery27 Seongsu — Ki Kim': 'Tue–Fri 10:00–18:00; closed Sunday–Monday. Ki Kim through 19 Sep.',
 };
 
 const itineraryExtraAddresses: Record<string, string[]> = {
@@ -249,6 +257,7 @@ const explore: ExploreStop[] = [
   { name: 'Imun Seollongtang', korean: '서울 종로구 우정국로 38-13 이문설농탕', note: 'Historic soup breakfast', district: 'Jongno / Bukchon', category: 'Food & drinks' },
   { name: 'Insadong SPA & Sauna', korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막', note: 'Sauna, baths, body scrub and massage near Insadong; daily 09:00–21:00, with treatments best started by 19:00.', district: 'Jongno / Bukchon', category: 'Wellness & work', booking: 'https://sites.google.com/view/insadongspa/home' },
   { name: '032c Gallery Seoul', korean: '서울 성동구 성수이로10길 14 032c 갤러리 서울', note: 'Fashion, publishing and exhibition space designed by Gonzales Haase AAS', district: 'Seongsu', category: 'Art & architecture', booking: 'https://032c.com/', visited: true },
+  { name: 'Gallery27 Seongsu — Ki Kim', korean: '서울 성동구 동일로 27 2층 갤러리27', note: 'Contemporary-art gallery; Ki Kim’s solo exhibition runs through 19 September. Tue–Fri 10:00–18:00.', district: 'Seongsu', category: 'Art & architecture', booking: 'https://gallery27ss.com/' },
   { name: 'tansanmagnesium Flagship', korean: '서울 성동구 연무장길 37-26 탄산마그네슘', note: 'Climbing-inspired Korean streetwear flagship: a boulder entrance, café and multi-level retail; daily 11:00–21:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://tansanmagnesium.kr/', visited: true },
   { name: 'Narrative Object', korean: '서울 성동구 서울숲2길 24-7 1층 내러티브 오브젝트', note: 'Korean craft and homeware: handmade ceramics, tea vessels, tableware and objects with a quiet folk-art sensibility. Tue–Sun 12:00–18:00; closed Monday.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://narrativeobject.co.kr/about.html' },
   { name: '29CM HOME Seongsu', korean: '서울 성동구 연무장길 57 이구홈 성수', note: '29CM’s home-and-lifestyle store for décor, kitchenware, textiles, furniture, lighting and design objects; daily 11:00–22:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://www.29cm.co.kr/content/29cmhome-seongsu/2025/06/grandopening' },
