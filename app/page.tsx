@@ -24,7 +24,6 @@ const days: Day[] = [
 ];
 
 const todayShoppingAlternatives: Stop[] = [
-  { name: 'The Book Society Hoehyeon', korean: '서울 중구 퇴계로4길 2 로컬스티치 C동 3층 더북소사이어티', note: 'Optional art-and-design bookshop after Design Miami; roughly 15–20 minutes from DDP by Line 4 plus walking. Open Wednesday–Sunday 13:00–19:00; closed Monday–Tuesday.', booking: 'https://www.thebooksociety.org/' },
   { name: 'Maison Margiela — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 2층 메종 마르지엘라', note: 'Optional department-store detour for fashion, shoes, leather goods, accessories and fragrance. This is farther from DDP—allow roughly 40–50 minutes by public transport. Open Wednesday 10:30–20:00.', booking: 'https://www.maisonmargiela.com/stores/maison-margiela-the-hyundai-seoul' },
   { name: 'SAN SAN GEAR — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 지하 2층 산산기어', note: 'Optional technical-fashion stop on B2 Creative Ground in the same building as Maison Margiela. Open Wednesday 10:30–20:00.', booking: 'https://sansangear.com/pages/stores' },
 ];
@@ -39,26 +38,98 @@ for (const day of days) {
 
 const september3 = days.find((day) => day.date === 'Sep 3');
 const september4 = days.find((day) => day.date === 'Sep 4');
+const narrativeObject: Stop = {
+  name: 'Narrative Object',
+  korean: '서울 성동구 서울숲2길 24-7 1층 내러티브 오브젝트',
+  note: 'Quiet Korean craft and homeware shop near Seoul Forest: handmade ceramics, tea vessels, tableware and objects with a folk-art sensibility. Open Tue–Sun 12:00–18:00; closed Monday.',
+  booking: 'https://narrativeobject.co.kr/about.html',
+};
+const twentyNineCmHome: Stop = {
+  name: '29CM HOME Seongsu',
+  korean: '서울 성동구 연무장길 57 이구홈 성수',
+  note: 'Large 29CM home-and-lifestyle store for décor, kitchenware, textiles, furniture, lighting and design objects. Open daily 11:00–22:00.',
+  booking: 'https://www.29cm.co.kr/content/29cmhome-seongsu/2025/06/grandopening',
+};
+const pointOfViewSeoul: Stop = {
+  name: 'Point of View Seoul',
+  korean: '서울 성동구 연무장길 18 1–3층 포인트오브뷰 서울',
+  note: 'Three-floor Seongsu flagship for artful stationery, design tools and objects. Open daily 12:00–20:00; occasional monthly closure—check Instagram before setting out.',
+  booking: 'https://pointofview.kr/pointofview/about.html',
+};
+const potterySeongsu: Stop = {
+  name: 'POTTERY Seongsu Flagship',
+  korean: '서울 성동구 연무장13길 9 1층 포터리 성수',
+  note: 'Korean menswear flagship focused on quietly tailored, durable everyday uniforms. Open daily 10:00–21:00.',
+  booking: 'https://www.ptry.co.kr/offline.html',
+};
+const bookSocietyHoehyeon: Stop = {
+  name: 'The Book Society Hoehyeon',
+  korean: '서울 중구 퇴계로4길 2 로컬스티치 C동 3층 더북소사이어티',
+  note: 'Independent art books, publishing and exhibitions. Open Wednesday–Sunday 13:00–19:00; closed Monday–Tuesday.',
+  booking: 'https://www.thebooksociety.org/',
+};
+const galleryHyundaiFriday: Stop = {
+  name: 'Gallery Hyundai',
+  korean: '서울 종로구 삼청로 14 갤러리현대',
+  note: 'Samcheong contemporary-art stop for the Kim Bohie and Christine Sun Kim exhibitions. Open Tue–Sun 10:00–18:00; closed Monday.',
+  booking: 'https://www.galleryhyundai.com/',
+};
+const museumHanmiSamcheong: Stop = {
+  name: 'Museum Hanmi Samcheong',
+  korean: '서울 종로구 삼청로11길 11 뮤지엄한미 삼청',
+  note: 'Photography and contemporary-art museum in the Samcheong lane. Open Tue–Sun 10:00–18:00; closed Monday.',
+  booking: 'https://museumhanmi.or.kr/eng/',
+};
+const artSpaceThree: Stop = {
+  name: 'Art Space 3',
+  korean: '서울 종로구 효자로7길 23 지하 1층 아트스페이스3',
+  note: 'Small Seochon contemporary-art stop. Open Tue–Sat 10:30–18:00; closed Sunday–Monday.',
+  booking: 'https://artspace3.com/',
+};
+const insadongSpa: Stop = {
+  name: 'Insadong SPA & Sauna',
+  korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막',
+  note: 'Saturday-afternoon sauna, baths and massage near home. The spa recommends arriving for treatments by 19:00; confirm your massage directly first.',
+  booking: 'https://sites.google.com/view/insadongspa/home',
+};
+const maisonMargielaHannam: Stop = {
+  name: 'Maison Margiela Hannam Flagship & Café',
+  korean: '서울 용산구 대사관로11길 8-7 메종 마르지엘라 한남',
+  note: 'Hannam flagship boutique and its on-site Maison Margiela Café with Bonanza Coffee.',
+  booking: 'https://www.maisonmargiela.com/ko-kr/stores/maison-margiela-hannam-flagship',
+  visited: true,
+};
 if (september3) {
+  september3.stops = [maisonMargielaHannam, ...september3.stops];
   september3.focus = 'Independent publishing · Kim Bohie · Christine Sun Kim · Korean craft · audiovisual culture';
   september3.must = 'No Frieze ticket is needed. Allow roughly 30–40 minutes by public transport from Hoehyeon to Samcheong and 40–50 minutes from Samcheong to Aapex; the Samcheong stops are walkable.';
 }
 
 if (september3 && september4) {
   const ader = september4.stops.find((stop) => stop.name === 'ADER Space 3.0 Sinsa');
-  if (ader) {
-    ader.visited = true;
-    september3.stops = [ader, ...september3.stops];
-  }
-  september4.stops = september4.stops.filter((stop) => ![
-    'ADER Space 3.0 Sinsa',
-    'HAUS NOWHERE Dosan',
-    'MECLADS Dosan',
+  const fashionVisits = september4.stops.filter((stop) => [
+    'JUUN.J Dosan Flagship',
+    'WE11DONE Cheongdam',
   ].includes(stop.name));
-  september4.theme = 'Dosan & Cheongdam fashion';
-  september4.description = 'A relaxed designer-shopping route through Dosan and Cheongdam, with room for fittings, lunch and the optional stops.';
-  september4.focus = 'JUUN.J · WE11DONE';
-  september4.must = 'JUUN.J and WE11DONE are the two planned shops. Add an optional stop only if you have the time and energy for it.';
+  if (ader) ader.visited = true;
+  for (const stop of fashionVisits) stop.visited = true;
+  const todayVisits = [ader, maisonMargielaHannam, ...fashionVisits].filter((stop): stop is Stop => Boolean(stop));
+  const todayVisitNames = new Set(todayVisits.map((stop) => stop.name));
+  const movedFromThursday = new Set(['The Book Society Hoehyeon', 'Gallery Hyundai — Samcheong Night']);
+  september3.stops = [...todayVisits, ...september3.stops.filter((stop) => !todayVisitNames.has(stop.name) && !movedFromThursday.has(stop.name))];
+  september3.options = undefined;
+  september4.stops = [pointOfViewSeoul, potterySeongsu, narrativeObject, bookSocietyHoehyeon, galleryHyundaiFriday, museumHanmiSamcheong, artSpaceThree];
+  september4.options = [twentyNineCmHome];
+  september4.theme = 'Seongsu, Samcheong & Seochon art';
+  september4.description = 'Start with Point of View in Seongsu, then move west for art books and a compact Samcheong–Seochon gallery route.';
+  september4.focus = 'Design tools · independent publishing · contemporary art';
+  september4.must = 'Point of View opens at noon and The Book Society at 13:00. Narrative Object is the ceramics stop; keep 29CM HOME optional, then allow about 35–45 minutes from Hoehyeon to Samcheong. Finish Art Space 3 by 18:00.';
+}
+
+const aapex = september3?.stops.find((stop) => stop.name === 'Aapex Bar');
+if (september3 && aapex) {
+  september3.stops = september3.stops.filter((stop) => stop.name !== 'Aapex Bar');
+  aapex.note = 'Optional Saturday-evening finish after the Insadong spa: industrial cocktail and cultural space with scent-led drinks, electronic music and audiovisual programming. Its programme varies, so confirm directly before travelling to Yongsan.';
 }
 
 const completedToday = new Set([
@@ -74,11 +145,17 @@ if (today) {
 
 const september5 = days.find((day) => day.date === 'Sep 5');
 if (september5) {
-  september5.theme = 'Seogyo & Seongsu design';
-  september5.description = 'A west-to-east design day: return properly to D&DEPARTMENT, then finish with designer vintage and independent retail in Seongsu.';
-  september5.focus = 'Korean design · designer vintage · LCDC Seoul';
+  const seongsuAlternatives = september5.stops.filter((stop) => [
+    'Fox Vintage Seoul Forest',
+    'LCDC Seoul',
+  ].includes(stop.name));
+  september5.theme = 'Seogyo & Insadong spa afternoon';
+  september5.description = 'Begin with a proper D&DEPARTMENT visit, then keep the afternoon restorative with a planned massage, sauna and baths near home in Insadong.';
+  september5.focus = 'Korean design · wellness';
   september5.stops = september5.stops.filter((stop) => !completedToday.has(stop.name));
-  september5.must = 'No booking is needed for the shops or Seoul Light. Allow roughly 50–60 minutes by public transport from Seogyo to Seongsu, followed by a short local transfer between Fox Vintage and LCDC.';
+  september5.stops = [...september5.stops.filter((stop) => stop.name === 'D&DEPARTMENT SEOUL by MMMG'), insadongSpa];
+  september5.options = [...(aapex ? [aapex] : []), ...(september5.options ?? []), ...seongsuAlternatives];
+  september5.must = 'Confirm the massage directly with Insadong SPA & Sauna. Aapex is an evening-only conditional finish—check its live programme before making the 25–35 minute taxi ride from Insadong to Yongsan. The Seoul Forest stops remain optional rather than forcing a cross-city detour.';
 }
 
 const itineraryDistricts: Record<string, string> = {
@@ -93,6 +170,12 @@ const itineraryDistricts: Record<string, string> = {
   'Art Sonje Center — Samcheong Night Party': 'Samcheong · Jongno-gu',
   'Soluna Fine Art — Material Bar': 'Seochon · Jongno-gu',
   'Art Space 3 — Fi Jae Lee artist talk': 'Seochon · Jongno-gu',
+  'Point of View Seoul': 'Seongsu · Seongdong-gu',
+  'Gallery Hyundai': 'Samcheong · Jongno-gu',
+  'Museum Hanmi Samcheong': 'Samcheong · Jongno-gu',
+  'Art Space 3': 'Seochon · Jongno-gu',
+  'Insadong SPA & Sauna': 'Insadong · Jongno-gu',
+  'Maison Margiela Hannam Flagship & Café': 'Hannam · Yongsan-gu',
   'ADER Space 3.0 Sinsa': 'Sinsa · Gangnam-gu',
   'HAUS NOWHERE Dosan': 'Dosan / Sinsa · Gangnam-gu',
   'MECLADS Dosan': 'Dosan · Gangnam-gu',
@@ -106,6 +189,8 @@ const itineraryDistricts: Record<string, string> = {
   'D&DEPARTMENT SEOUL by MMMG': 'Seogyo · Mapo-gu',
   'Fox Vintage Seoul Forest': 'Seoul Forest / Seongsu · Seongdong-gu',
   'LCDC Seoul': 'Seongsu · Seongdong-gu',
+  'Narrative Object': 'Seoul Forest · Seongdong-gu',
+  '29CM HOME Seongsu': 'Seongsu · Seongdong-gu',
   'Seoul Light DDP 2026 Autumn — Saturday live programme': 'Dongdaemun · Jung-gu',
   'Changdeokgung Secret Garden (Huwon)': 'Changdeokgung / Jongno · Jongno-gu',
   'Incheon Terminal 1': 'Incheon Airport · Jung-gu, Incheon',
@@ -113,6 +198,10 @@ const itineraryDistricts: Record<string, string> = {
 };
 
 const itineraryHours: Record<string, string> = {
+  'Narrative Object': 'Tue–Sun 12:00–18:00; closed Monday.',
+  '29CM HOME Seongsu': 'Daily 11:00–22:00.',
+  'Insadong SPA & Sauna': 'Daily 09:00–21:00; arrive for treatments by 19:00.',
+  'Maison Margiela Hannam Flagship & Café': 'Daily 11:00–20:00.',
   'The Book Society Hoehyeon': 'Wed–Sun 13:00–19:00; closed Mon–Tue.',
   'White Cube Seoul — Marina Rheingantz: Míope': 'Daytime: Tue–Sat 10:00–18:00; closed Sun–Mon. Cheongdam Night: Wed 2 Sep 18:00–22:00.',
   'SONGEUN — Generative Forms': 'Daytime: Mon–Sat 11:00–18:30; last entry 18:10; closed Sun and public holidays. Cheongdam Night: Wed 2 Sep until 22:00.',
@@ -121,6 +210,10 @@ const itineraryHours: Record<string, string> = {
   'Art Sonje Center — Samcheong Night Party': 'Daytime: Tue–Sun 12:00–19:00; closed Mon. Samcheong Night party: Thu 3 Sep 19:00–22:00 with registration.',
   'Soluna Fine Art — Material Bar': 'Seoul office hours: Mon–Fri 10:00–18:00. Material Bar: Thu 3 Sep 18:00–21:00; contact ahead for a daytime visit.',
   'Art Space 3 — Fi Jae Lee artist talk': 'Daytime: Tue–Sat 10:30–18:00; closed Sun–Mon. Artist talk: Thu 3 Sep 19:30–20:30.',
+  'Point of View Seoul': 'Daily 12:00–20:00; occasional monthly closure—check Instagram.',
+  'Gallery Hyundai': 'Tue–Sun 10:00–18:00; closed Monday.',
+  'Museum Hanmi Samcheong': 'Tue–Sun 10:00–18:00; closed Monday.',
+  'Art Space 3': 'Tue–Sat 10:30–18:00; closed Sunday–Monday.',
 };
 
 const itineraryExtraAddresses: Record<string, string[]> = {
@@ -146,9 +239,13 @@ const explore: ExploreStop[] = [
   { name: 'Hwangsaengga Kalguksu', korean: '서울 종로구 북촌로5길 78 황생가칼국수', note: 'Kalguksu and mandu', district: 'Jongno / Bukchon', category: 'Food & drinks' },
   { name: 'Gaeseong Mandu Koong', korean: '서울 종로구 인사동10길 11-3 개성만두 궁', note: 'Hanok mandu restaurant', district: 'Jongno / Bukchon', category: 'Food & drinks' },
   { name: 'Imun Seollongtang', korean: '서울 종로구 우정국로 38-13 이문설농탕', note: 'Historic soup breakfast', district: 'Jongno / Bukchon', category: 'Food & drinks' },
+  { name: 'Insadong SPA & Sauna', korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막', note: 'Sauna, baths, body scrub and massage near Insadong; daily 09:00–21:00, with treatments best started by 19:00.', district: 'Jongno / Bukchon', category: 'Wellness & work', booking: 'https://sites.google.com/view/insadongspa/home' },
   { name: '032c Gallery Seoul', korean: '서울 성동구 성수이로10길 14 032c 갤러리 서울', note: 'Fashion, publishing and exhibition space designed by Gonzales Haase AAS', district: 'Seongsu', category: 'Art & architecture', booking: 'https://032c.com/', visited: true },
   { name: 'tansanmagnesium Flagship', korean: '서울 성동구 연무장길 37-26 탄산마그네슘', note: 'Climbing-inspired Korean streetwear flagship: a boulder entrance, café and multi-level retail; daily 11:00–21:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://tansanmagnesium.kr/', visited: true },
   { name: 'LCDC Seoul', korean: '서울 성동구 연무장17길 10 LCDC SEOUL', note: 'Courtyard design complex with rotating Korean brands and curated design-object shops.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://lcdc-seoul.com/' },
+  { name: 'Narrative Object', korean: '서울 성동구 서울숲2길 24-7 1층 내러티브 오브젝트', note: 'Korean craft and homeware: handmade ceramics, tea vessels, tableware and objects with a quiet folk-art sensibility. Tue–Sun 12:00–18:00; closed Monday.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://narrativeobject.co.kr/about.html' },
+  { name: '29CM HOME Seongsu', korean: '서울 성동구 연무장길 57 이구홈 성수', note: '29CM’s home-and-lifestyle store for décor, kitchenware, textiles, furniture, lighting and design objects; daily 11:00–22:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://www.29cm.co.kr/content/29cmhome-seongsu/2025/06/grandopening' },
+  { name: 'Point of View Seoul', korean: '서울 성동구 연무장길 18 1–3층 포인트오브뷰 서울', note: 'Three floors of artful stationery, design tools and objects; daily 12:00–20:00, with an occasional monthly closure.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://pointofview.kr/pointofview/about.html' },
   { name: 'Fox Vintage Seoul Forest', korean: '서울 성동구 서울숲6길 10 지하1층 폭스빈티지 서울숲', note: 'Curated designer vintage, often including Comme des Garçons, Jil Sander, Vivienne Westwood and Missoni; reported daily 13:00–21:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://seoul.vintagefox.kr/' },
   { name: 'HAUS NOWHERE + NUDAKE Tea House', korean: '서울 성동구 뚝섬로 433 하우스 노웨어 서울', note: 'Conceptual retail; Tea House on 5F', district: 'Seongsu', category: 'Fashion & design', booking: 'https://nudake.com/kr/store/tea-house/' },
   { name: 'Tamburins Seongsu', korean: '서울 성동구 성수동 탬버린즈 성수', note: 'Retail architecture', district: 'Seongsu', category: 'Fashion & design' },
@@ -163,6 +260,7 @@ const explore: ExploreStop[] = [
   { name: 'Hangong-Gan', korean: '서울 마포구 연남동 561-4 한공간', note: 'Asian-fusion dinner', district: 'Yeonnam / Hongdae', category: 'Food & drinks', visited: true },
   { name: 'Leeum Museum of Art', korean: '서울 용산구 이태원로55길 60-16 리움미술관', note: 'OMA, Mario Botta and Jean Nouvel', district: 'Hannam / Itaewon', category: 'Art & architecture', booking: 'https://ticket.leeum.org/leeum/personal/exhibitList.do', visited: true },
   { name: 'SAN SAN GEAR Hannam', korean: '서울 용산구 이태원로55길 37-10 산산기어 한남', note: 'New fashion flagship in a former house', district: 'Hannam / Itaewon', category: 'Fashion & design' },
+  { name: 'Maison Margiela Hannam Flagship & Café', korean: '서울 용산구 대사관로11길 8-7 메종 마르지엘라 한남', note: 'Flagship boutique with an on-site Maison Margiela Café in collaboration with Bonanza Coffee.', district: 'Hannam / Itaewon', category: 'Fashion & design', booking: 'https://www.maisonmargiela.com/ko-kr/stores/maison-margiela-hannam-flagship', visited: true },
   { name: 'D&DEPARTMENT SEOUL by MMMG', korean: '서울 마포구 월드컵북로5길 41 1층 로컬스티치 크리에이터 타운 서교', note: 'Design objects, stationery and food; 11:30–19:00, +82 2-332-1520', district: 'Yeonnam / Hongdae', category: 'Fashion & design', booking: 'https://www.d-department.com/ext/shop/seoul.html' },
   { name: 'Maison Margiela — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 2층 메종 마르지엘라', note: 'Dedicated fashion, shoes, leather goods, accessories and fragrance store on 2F.', district: 'Yeouido', category: 'Fashion & design', booking: 'https://www.maisonmargiela.com/stores/maison-margiela-the-hyundai-seoul', visited: true },
   { name: 'SAN SAN GEAR — The Hyundai Seoul', korean: '서울 영등포구 여의대로 108 더현대 서울 지하 2층 산산기어', note: 'Technical Korean fashion store on B2 Creative Ground.', district: 'Yeouido', category: 'Fashion & design', booking: 'https://sansangear.com/pages/stores', visited: true },
@@ -181,7 +279,8 @@ const explore: ExploreStop[] = [
   { name: 'House of Dior Seoul', korean: '서울 강남구 압구정로 464 하우스 오브 디올', note: 'Christian de Portzamparc exterior', district: 'Dosan / Gangnam', category: 'Fashion & design' },
   { name: 'HAUS NOWHERE DOSAN — Gentle Monster', korean: '서울 강남구 압구정로46길 50 하우스 노웨어 도산', note: 'Gentle Monster, Tamburins and NUDAKE flagship under one roof', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://www.gentlemonster.com/int/en/stores/detail/779149629756556663' },
   { name: 'Sulwhasoo Flagship', korean: '서울 강남구 도산대로45길 18 설화수 플래그십스토어', note: 'Neri&Hu; best at dusk', district: 'Dosan / Gangnam', category: 'Art & architecture' },
-  { name: 'JUUN.J Dosan Flagship', korean: '서울 강남구 언주로164길 23 준지 도산 플래그십스토어', note: 'WGNB-designed fashion flagship: a study in deep shade, courtyards and black interiors', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://designwanted.com/juun-j-flagship-wgnb/' },
+  { name: 'JUUN.J Dosan Flagship', korean: '서울 강남구 언주로164길 23 준지 도산 플래그십스토어', note: 'WGNB-designed fashion flagship: a study in deep shade, courtyards and black interiors', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://designwanted.com/juun-j-flagship-wgnb/', visited: true },
+  { name: 'WE11DONE Cheongdam', korean: '서울 강남구 압구정로80길 24 웰던', note: 'Korean designer flagship; daily 11:00–20:00.', district: 'Dosan / Gangnam', category: 'Fashion & design', booking: 'https://www.we11-done.com/us/service/store.php', visited: true },
   { name: 'Gugus Apgujeong', korean: '서울 강남구 선릉로 846 구구스 압구정점', note: 'Pre-owned luxury', district: 'Dosan / Gangnam', category: 'Fashion & design' },
   { name: 'Urban Hive', korean: '서울 강남구 논현동 200-7 어반하이브', note: 'Perforated-concrete exterior', district: 'Dosan / Gangnam', category: 'Art & architecture' },
   { name: 'Frieze Seoul — COEX', korean: '서울 강남구 영동대로 513 코엑스 C·D홀 프리즈 서울', note: 'Optional contemporary-art fair. Allow 2¾–3¼ hours for Focus, Material Practice, Pace and PKM, all inside the same connected venue. Priorities: Arumjigi, Marta, Art Space 3, Soluna Fine Art, Charles Burnand, Yoo Youngkuk, Anicka Yi, James Turrell, Koo Jeong A, Yun Hyong-keun and Olafur Eliasson. Standard Thursday admission is ₩90,000 per person and begins at 15:00.', district: 'Gangnam / COEX', category: 'Art & architecture', booking: 'https://www.frieze.com/fairs/frieze-seoul' },
