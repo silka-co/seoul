@@ -173,6 +173,54 @@ if (september5) {
   september5.must = 'Start at Gallery Hyundai at 10:00, then walk a few minutes to Museum Hanmi. Continue west to Art Space 3 (about 20 minutes on foot; it opens 10:30), have lunch in Seochon, then go to Insadong SPA whenever you feel ready—nothing is planned after it. D&DEPARTMENT is a longer optional detour; Seoul Light remains optional only if you change your mind about an evening plan.';
 }
 
+const september6 = days.find((day) => day.date === 'Sep 6');
+const mimiok: Stop = {
+  name: 'Mimiok (미미옥)',
+  korean: '서울 용산구 한강대로15길 27 미미옥 신용산점',
+  note: 'Hanok-style beef shabu-shabu dinner. The set for two (about ₩46,500) comes with rich savoury-sweet broth, premium beef chuck, a crisp minari pancake and finishing porridge made in the remaining broth. Dinner service resumes at 17:00; last order is around 21:00.',
+  booking: 'https://www.instagram.com/mimiok_official/',
+};
+const completedHuwon: Stop = {
+  name: 'Changdeokgung Secret Garden (Huwon)',
+  korean: '서울 종로구 율곡로 99 창덕궁 후원',
+  note: 'Woodland, ponds and pavilions at Changdeokgung.',
+  booking: 'https://ticket.uforus.co.kr/web/main?lang=en',
+  visited: true,
+};
+
+if (september5 && september6) {
+  const carryOverStops = september5.stops.filter((stop) => stop.name !== 'Insadong SPA & Sauna');
+  const dDepartmentCarryOver = september5.options?.find((stop) => stop.name === 'D&DEPARTMENT SEOUL by MMMG');
+  const aapexTonight = days.flatMap((day) => [...day.stops, ...(day.options ?? [])]).find((stop) => stop.name === 'Aapex Bar') ?? aapex;
+
+  insadongSpa.visited = true;
+  if (aapexTonight) {
+    for (const day of days) {
+      day.stops = day.stops.filter((stop) => stop !== aapexTonight);
+      if (day.options) day.options = day.options.filter((stop) => stop !== aapexTonight);
+    }
+    aapexTonight.note = 'Tonight’s cocktail finish after Mimiok: industrial cultural space with scent-led drinks, electronic music and audiovisual programming. Reported hours are 18:30–01:00; check the night’s programme directly before travelling.';
+  }
+
+  september5.theme = 'Huwon, Insadong sauna & Yongsan dinner';
+  september5.description = 'A gentle completed day in Jongno, followed by beef shabu-shabu at Mimiok and cocktails at AAPEX in Yongsan.';
+  september5.focus = '✓ Been · Secret Garden · Insadong sauna · Mimiok · AAPEX';
+  september5.focusLabel = 'Today';
+  september5.stops = [completedHuwon, insadongSpa, mimiok, ...(aapexTonight ? [aapexTonight] : [])];
+  september5.options = undefined;
+  september5.must = 'Mimiok is at 27 Hangang-daero 15-gil in Yongsan. Have dinner there, then continue to AAPEX at 17-13 Hangang-daero 21-gil — a short ride or roughly 15–20 minutes on foot.';
+
+  const departureStops = september6.stops.filter((stop) => stop.name !== 'Changdeokgung Secret Garden (Huwon)');
+  const validCarryOvers = carryOverStops.filter((stop) => stop.name !== 'Art Space 3');
+  september6.theme = 'Carry-overs & airport';
+  september6.description = 'Use the morning for any remaining central-Seoul stops, then collect bags and leave from Seoul Station around 15:20–15:30.';
+  september6.focus = 'Gallery Hyundai · Museum Hanmi · D&DEPARTMENT · airport';
+  september6.focusLabel = 'Choose lightly';
+  september6.stops = [...validCarryOvers, ...(dDepartmentCarryOver ? [dDepartmentCarryOver] : []), ...departureStops];
+  september6.options = undefined;
+  september6.must = 'These are carry-overs from today, so choose only what fits comfortably before departure. Art Space 3 is closed Sundays and Seoul Light’s Saturday-only programme has passed; neither is carried forward. Return for bags, then take AREX from Seoul Station around 15:20–15:30.';
+}
+
 const itineraryDistricts: Record<string, string> = {
   'Design Miami Seoul — recommended route': 'Dongdaemun · Jung-gu',
   'Gangnam Art Salon — Cheongdam Night starting hub': 'Dosan Park · Gangnam-gu',
@@ -208,6 +256,7 @@ const itineraryDistricts: Record<string, string> = {
   '29CM HOME Seongsu': 'Seongsu · Seongdong-gu',
   'Seoul Light DDP 2026 Autumn — Saturday live programme': 'Dongdaemun · Jung-gu',
   'Changdeokgung Secret Garden (Huwon)': 'Changdeokgung / Jongno · Jongno-gu',
+  'Mimiok (미미옥)': 'Yongsan · Yongsan-gu',
   'Incheon Terminal 1': 'Incheon Airport · Jung-gu, Incheon',
   'Incheon Terminal 2': 'Incheon Airport · Jung-gu, Incheon',
 };
@@ -230,6 +279,7 @@ const itineraryHours: Record<string, string> = {
   'Museum Hanmi Samcheong': 'Tue–Sun 10:00–18:00; closed Monday.',
   'Art Space 3': 'Tue–Sat 10:30–18:00; closed Sunday–Monday.',
   'Gallery27 Seongsu — Ki Kim': 'Tue–Fri 10:00–18:00; closed Sunday–Monday. Ki Kim through 19 Sep.',
+  'Mimiok (미미옥)': 'Daily 11:00–15:00 and 17:00–21:30; dinner last order is around 21:00.',
 };
 
 const itineraryExtraAddresses: Record<string, string[]> = {
@@ -255,7 +305,7 @@ const explore: ExploreStop[] = [
   { name: 'Hwangsaengga Kalguksu', korean: '서울 종로구 북촌로5길 78 황생가칼국수', note: 'Kalguksu and mandu', district: 'Jongno / Bukchon', category: 'Food & drinks' },
   { name: 'Gaeseong Mandu Koong', korean: '서울 종로구 인사동10길 11-3 개성만두 궁', note: 'Hanok mandu restaurant', district: 'Jongno / Bukchon', category: 'Food & drinks' },
   { name: 'Imun Seollongtang', korean: '서울 종로구 우정국로 38-13 이문설농탕', note: 'Historic soup breakfast', district: 'Jongno / Bukchon', category: 'Food & drinks' },
-  { name: 'Insadong SPA & Sauna', korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막', note: 'Sauna, baths, body scrub and massage near Insadong; daily 09:00–21:00, with treatments best started by 19:00.', district: 'Jongno / Bukchon', category: 'Wellness & work', booking: 'https://sites.google.com/view/insadongspa/home' },
+  { name: 'Insadong SPA & Sauna', korean: '서울 종로구 율곡로6길 36 월드오피스텔 지하 1층 인사동 한증막', note: 'Sauna, baths, body scrub and massage near Insadong; daily 09:00–21:00, with treatments best started by 19:00.', district: 'Jongno / Bukchon', category: 'Wellness & work', booking: 'https://sites.google.com/view/insadongspa/home', visited: true },
   { name: '032c Gallery Seoul', korean: '서울 성동구 성수이로10길 14 032c 갤러리 서울', note: 'Fashion, publishing and exhibition space designed by Gonzales Haase AAS', district: 'Seongsu', category: 'Art & architecture', booking: 'https://032c.com/', visited: true },
   { name: 'Gallery27 Seongsu — Ki Kim', korean: '서울 성동구 동일로 27 2층 갤러리27', note: 'Contemporary-art gallery; Ki Kim’s solo exhibition runs through 19 September. Tue–Fri 10:00–18:00.', district: 'Seongsu', category: 'Art & architecture', booking: 'https://gallery27ss.com/' },
   { name: 'tansanmagnesium Flagship', korean: '서울 성동구 연무장길 37-26 탄산마그네슘', note: 'Climbing-inspired Korean streetwear flagship: a boulder entrance, café and multi-level retail; daily 11:00–21:00.', district: 'Seongsu', category: 'Fashion & design', booking: 'https://tansanmagnesium.kr/', visited: true },
@@ -402,7 +452,7 @@ export default function Home() {
           {day.options && <div className="event-options"><p className="option-label">Optional alternatives</p>{day.options.map((stop, index) => <StopCard stop={stop} index={day.stops.length + index + 1} optional imageLink={false} key={stop.name} />)}</div>}
         </article>)}
       </section>
-      <section className="need"><p className="eyebrow">Before leaving</p><h2>Book or confirm now</h2><ol><li><a href="https://ticket.uforus.co.kr/web/main?lang=en" target="_blank">Changdeokgung Secret Garden timed entry</a> · Sep 6</li><li><a href="https://designmiami.com/fair/seoul-2026" target="_blank">Design Miami Seoul</a> · Sep 2</li><li>Message Hangong-Gan to confirm dinner.</li></ol></section>
+      <section className="need"><p className="eyebrow">Tonight</p><h2>Confirm before heading to Yongsan</h2><ol><li>Check Mimiok’s current wait or make a CatchTable booking if a dinner slot is still available.</li><li>Check AAPEX’s Instagram for tonight’s programme before leaving Mimiok.</li><li>For tomorrow, keep the morning light and leave Seoul Station around 15:20–15:30 for the airport.</li></ol></section>
     </> : tab === 'explore' ? <section id="content" className="itinerary explore"><div className="section-head"><p className="eyebrow">Plan B, C & D</p><h2>Explore by district.</h2><p>These are the saved alternatives from the master list. Filter for where you are, then choose the kind of place you feel like seeing.</p></div><div className="explore-filters"><select value={district} onChange={(event) => setDistrict(event.target.value)} aria-label="Choose district">{districts.map((item) => <option key={item}>{item}</option>)}</select><select value={category} onChange={(event) => setCategory(event.target.value)} aria-label="Choose category">{categories.map((item) => <option key={item}>{item}</option>)}</select></div><p className="result-count">{nearby.length} saved places</p><div className="explore-grid">{nearby.map((stop) => <article className="explore-card" key={stop.name}><p className="card-meta">{stop.district} · {stop.category}</p><h3>{stop.name}</h3><p>{stop.note}</p><code>{stop.korean}</code><div className="online-actions">{stop.booking && <a href={stop.booking} target="_blank">Official / booking ↗</a>}{stop.links?.map((link) => <a href={link.url} target="_blank" key={link.url}>{link.label}</a>)}<a href={webSearch(`${stop.name} Seoul reviews official`)} target="_blank">Web & reviews ↗</a><a href={imageSearch(stop.name)} target="_blank">Image / Instagram search ↗</a></div><div className="map-actions"><a href={naver(stop.korean)} target="_blank">Naver Map ↗</a><a href={kakao(stop.korean)} target="_blank">KakaoMap ↗</a></div></article>)}</div></section> : <TravelTips />}
     <footer>Made for the trip · Keep this link pinned in Messages.</footer>
   </main>;
